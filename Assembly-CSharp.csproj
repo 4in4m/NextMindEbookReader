@@ -11,7 +11,7 @@
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace></RootNamespace>
-    <ProjectGuid>{9EF1925B-6161-5475-C43D-39F78ABAD2D2}</ProjectGuid>
+    <ProjectGuid>{737B3005-CC7F-4A5A-7C4F-BC455BA826AF}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <AssemblyName>Assembly-CSharp</AssemblyName>
@@ -110,11 +110,13 @@
     <Compile Include="Assets\FB2Library\IFB2Reader.cs" />
     <Compile Include="Assets\FB2Library\XmlLoadSettings.cs" />
     <Compile Include="Assets\Scripts\AppManager.cs" />
-    <Compile Include="Assets\Scripts\BookData.cs" />
     <Compile Include="Assets\Scripts\FB2SampleConverter.cs" />
     <Compile Include="Assets\Scripts\FileData.cs" />
+    <Compile Include="Assets\Scripts\HelloWorld.cs" />
+    <Compile Include="Assets\Scripts\UIBookViewer.cs" />
     <Compile Include="Assets\Scripts\UIExpandButton.cs" />
     <Compile Include="Assets\Scripts\UIFileEditor.cs" />
+    <Compile Include="Assets\Scripts\UIFileSlot.cs" />
     <Compile Include="Assets\Scripts\UIManager.cs" />
     <Compile Include="Assets\Scripts\UISymbolButton.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark01.cs" />
@@ -359,7 +361,7 @@
       <HintPath>C:/Program Files/Unity/Hub/Editor/2019.4.19f1/Editor/Data/Managed/UnityEditor.dll</HintPath>
     </Reference>
     <Reference Include="NextMind">
-      <HintPath>D:/Projects/Work/NextMind/Unity/NextMind-BookReader/Assets/NextMindSDK/Core/Runtime/Plugins/NextMind.dll</HintPath>
+      <HintPath>D:/Projects/Work/NextMind/Unity/NextMindEbookReader/Assets/NextMindSDK/Core/Runtime/Plugins/NextMind.dll</HintPath>
     </Reference>
     <Reference Include="netstandard">
       <HintPath>C:/Program Files/Unity/Hub/Editor/2019.4.19f1/Editor/Data/NetStandard/ref/2.0.0/netstandard.dll</HintPath>
@@ -707,48 +709,57 @@
       <HintPath>C:/Program Files/Unity/Hub/Editor/2019.4.19f1/Editor/Data/NetStandard/compat/2.0.0/shims/netfx/System.Xml.Serialization.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Timeline.Editor">
-      <HintPath>D:/Projects/Work/NextMind/Unity/NextMind-BookReader/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
+      <HintPath>D:/Projects/Work/NextMind/Unity/NextMindEbookReader/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.VSCode.Editor">
-      <HintPath>D:/Projects/Work/NextMind/Unity/NextMind-BookReader/Library/ScriptAssemblies/Unity.VSCode.Editor.dll</HintPath>
+      <HintPath>D:/Projects/Work/NextMind/Unity/NextMindEbookReader/Library/ScriptAssemblies/Unity.VSCode.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.TextMeshPro.Editor">
-      <HintPath>D:/Projects/Work/NextMind/Unity/NextMind-BookReader/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
+      <HintPath>D:/Projects/Work/NextMind/Unity/NextMindEbookReader/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.UI">
-      <HintPath>D:/Projects/Work/NextMind/Unity/NextMind-BookReader/Library/ScriptAssemblies/UnityEngine.UI.dll</HintPath>
+      <HintPath>D:/Projects/Work/NextMind/Unity/NextMindEbookReader/Library/ScriptAssemblies/UnityEngine.UI.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Timeline">
-      <HintPath>D:/Projects/Work/NextMind/Unity/NextMind-BookReader/Library/ScriptAssemblies/Unity.Timeline.dll</HintPath>
+      <HintPath>D:/Projects/Work/NextMind/Unity/NextMindEbookReader/Library/ScriptAssemblies/Unity.Timeline.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Scripting.Python.Editor.PlatformCheck">
+      <HintPath>D:/Projects/Work/NextMind/Unity/NextMindEbookReader/Library/ScriptAssemblies/Unity.Scripting.Python.Editor.PlatformCheck.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Scripting.Python.Editor">
+      <HintPath>D:/Projects/Work/NextMind/Unity/NextMindEbookReader/Library/ScriptAssemblies/Unity.Scripting.Python.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.CollabProxy.Editor">
-      <HintPath>D:/Projects/Work/NextMind/Unity/NextMind-BookReader/Library/ScriptAssemblies/Unity.CollabProxy.Editor.dll</HintPath>
+      <HintPath>D:/Projects/Work/NextMind/Unity/NextMindEbookReader/Library/ScriptAssemblies/Unity.CollabProxy.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Rider.Editor">
-      <HintPath>D:/Projects/Work/NextMind/Unity/NextMind-BookReader/Library/ScriptAssemblies/Unity.Rider.Editor.dll</HintPath>
+      <HintPath>D:/Projects/Work/NextMind/Unity/NextMindEbookReader/Library/ScriptAssemblies/Unity.Rider.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.TextMeshPro">
-      <HintPath>D:/Projects/Work/NextMind/Unity/NextMind-BookReader/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
+      <HintPath>D:/Projects/Work/NextMind/Unity/NextMindEbookReader/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
     </Reference>
     <Reference Include="UnityEditor.UI">
-      <HintPath>D:/Projects/Work/NextMind/Unity/NextMind-BookReader/Library/ScriptAssemblies/UnityEditor.UI.dll</HintPath>
+      <HintPath>D:/Projects/Work/NextMind/Unity/NextMindEbookReader/Library/ScriptAssemblies/UnityEditor.UI.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.2D.Sprite.Editor">
+      <HintPath>D:/Projects/Work/NextMind/Unity/NextMindEbookReader/Library/ScriptAssemblies/Unity.2D.Sprite.Editor.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="NextMind.UnitySDK.Runtime.csproj">
-      <Project>{1D175A64-18D4-E2BD-1CDB-143AEC60FA66}</Project>
+      <Project>{3776504B-339B-B72B-2BFB-24618384B9A4}</Project>
       <Name>NextMind.UnitySDK.Runtime</Name>
     </ProjectReference>
     <ProjectReference Include="SimpleFileBrowser.Editor.csproj">
-      <Project>{C8074E73-64B7-E687-4B6D-6394D525EBAC}</Project>
+      <Project>{FCFDA62B-EF47-FDE1-1287-C85C3F6BEEF7}</Project>
       <Name>SimpleFileBrowser.Editor</Name>
     </ProjectReference>
     <ProjectReference Include="SimpleFileBrowser.Runtime.csproj">
-      <Project>{CF29D416-D866-4E69-A641-5EB84DAB7DEB}</Project>
+      <Project>{745C504E-2A8D-707C-D7D2-BB8EAFF5D5AE}</Project>
       <Name>SimpleFileBrowser.Runtime</Name>
     </ProjectReference>
     <ProjectReference Include="NextMind.UnitySDK.Examples.csproj">
-      <Project>{B9F21A28-49E3-2FB1-D32B-A5B57E56B76F}</Project>
+      <Project>{1C89143B-77D0-F5B4-22AD-9DB9D0ED2BD7}</Project>
       <Name>NextMind.UnitySDK.Examples</Name>
     </ProjectReference>
   </ItemGroup>

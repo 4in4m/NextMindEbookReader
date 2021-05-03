@@ -1,7 +1,6 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using TMPro;
+using NextMind.NeuroTags;
 
 public class UISymbolButton : MonoBehaviour
 {

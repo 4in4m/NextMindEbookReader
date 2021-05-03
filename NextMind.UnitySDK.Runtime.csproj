@@ -11,7 +11,7 @@
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace></RootNamespace>
-    <ProjectGuid>{1D175A64-18D4-E2BD-1CDB-143AEC60FA66}</ProjectGuid>
+    <ProjectGuid>{3776504B-339B-B72B-2BFB-24618384B9A4}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <AssemblyName>NextMind.UnitySDK.Runtime</AssemblyName>
@@ -275,10 +275,13 @@
       <HintPath>C:/Program Files (x86)/Microsoft Visual Studio Tools for Unity/15.0/Editor/SyntaxTree.VisualStudio.Unity.Bridge.dll</HintPath>
     </Reference>
     <Reference Include="NextMind.Editor">
-      <HintPath>D:/Projects/Work/NextMind/Unity/NextMind-BookReader/Assets/NextMindSDK/Core/Editor/Plugins/NextMind.Editor.dll</HintPath>
+      <HintPath>D:/Projects/Work/NextMind/Unity/NextMindEbookReader/Assets/NextMindSDK/Core/Editor/Plugins/NextMind.Editor.dll</HintPath>
     </Reference>
     <Reference Include="NextMind">
-      <HintPath>D:/Projects/Work/NextMind/Unity/NextMind-BookReader/Assets/NextMindSDK/Core/Runtime/Plugins/NextMind.dll</HintPath>
+      <HintPath>D:/Projects/Work/NextMind/Unity/NextMindEbookReader/Assets/NextMindSDK/Core/Runtime/Plugins/NextMind.dll</HintPath>
+    </Reference>
+    <Reference Include="Python.Runtime">
+      <HintPath>D:/Projects/Work/NextMind/Unity/NextMindEbookReader/Library/PackageCache/com.unity.scripting.python@4.0.0-exp.5/Editor/Lib/x64/ReleaseWin/Python.Runtime.dll</HintPath>
     </Reference>
     <Reference Include="netstandard">
       <HintPath>C:/Program Files/Unity/Hub/Editor/2019.4.19f1/Editor/Data/NetStandard/ref/2.0.0/netstandard.dll</HintPath>
@@ -626,10 +629,10 @@
       <HintPath>C:/Program Files/Unity/Hub/Editor/2019.4.19f1/Editor/Data/NetStandard/compat/2.0.0/shims/netfx/System.Xml.Serialization.dll</HintPath>
     </Reference>
     <Reference Include="UnityEditor.UI">
-      <HintPath>D:/Projects/Work/NextMind/Unity/NextMind-BookReader/Library/ScriptAssemblies/UnityEditor.UI.dll</HintPath>
+      <HintPath>D:/Projects/Work/NextMind/Unity/NextMindEbookReader/Library/ScriptAssemblies/UnityEditor.UI.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.UI">
-      <HintPath>D:/Projects/Work/NextMind/Unity/NextMind-BookReader/Library/ScriptAssemblies/UnityEngine.UI.dll</HintPath>
+      <HintPath>D:/Projects/Work/NextMind/Unity/NextMindEbookReader/Library/ScriptAssemblies/UnityEngine.UI.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup></ItemGroup>

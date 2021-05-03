@@ -1,76 +1,80 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
+using NextMind.NeuroTags;
 
 public class UIFileEditor : MonoBehaviour
 {
-    [SerializeField] private AppManager appManager;
+    [SerializeField] private TMP_InputField _inputField;
 
-    [SerializeField] private TMP_InputField inputField;
-    [SerializeField] private RectTransform symbolsButtonsParent;
-    [SerializeField] private UIExpandButton[] expandButtons;
+    [SerializeField] private Button _saveButton;
 
-    private bool firstSymbolInputMode = true;
+    [SerializeField] private Button _closeButton;
 
-    private FileData currentFile;
+    [SerializeField] private Button _backspaceButton;
 
-    private void Awake()
-    {
-        appManager = FindObjectOfType<AppManager>();
-    }
+    [SerializeField] private Button _enterButton;
 
-    void Start()
+    [SerializeField] private Button _spaceButton;
+
+    [SerializeField] private Button _symbolModeButton;
+
+    [SerializeField] private UIExpandButton[] _expandButtons;
+
+    private bool _firstSymbolInputMode = true;
+
+    private FileData _currentFile;
+
+    void Awake()
     {
         UISymbolButton[] buttons = Resources.FindObjectsOfTypeAll(typeof(UISymbolButton)) as UISymbolButton[];
 
         foreach (var button in buttons)
         {
             button.GetComponent<Button>().onClick.AddListener(() => InputSymbol(button));
+            button.GetComponentInChildren<NeuroTag>().onTriggered.AddListener(() => InputSymbol(button));
         }
 
-        foreach (var btn in expandButtons)
+        foreach (var btn in _expandButtons)
         {
             btn.GetComponent<Button>().onClick.AddListener(() => ExpandPanel(btn));
+            btn.GetComponentInChildren<NeuroTag>().onTriggered.AddListener(() => ExpandPanel(btn));
         }
+
+        _saveButton.onClick.AddListener(() => SaveFile());
+        _saveButton.GetComponentInChildren<NeuroTag>().onTriggered.AddListener(() => SaveFile());
+
+        UIManager uIManager = transform.root.GetComponent<UIManager>();
+
+        _closeButton.onClick.AddListener(() => uIManager.OpenFile(_currentFile));
+        _closeButton.GetComponentInChildren<NeuroTag>().onTriggered.AddListener(() => uIManager.OpenFile(_currentFile));
+
+        _backspaceButton.onClick.AddListener(() => RemoveLastSymbol());
+        _backspaceButton.GetComponentInChildren<NeuroTag>().onTriggered.AddListener(() => RemoveLastSymbol());
+
+        _enterButton.onClick.AddListener(() => InputEnterLine());
+        _enterButton.GetComponentInChildren<NeuroTag>().onTriggered.AddListener(() => InputEnterLine());
+
+        _spaceButton.onClick.AddListener(() => InputSpaceSymbol());
+        _spaceButton.GetComponentInChildren<NeuroTag>().onTriggered.AddListener(() => InputSpaceSymbol());
+
+        _symbolModeButton.onClick.AddListener(() => SwitchInputMode());
+        _symbolModeButton.GetComponentInChildren<NeuroTag>().onTriggered.AddListener(() => SwitchInputMode());
     }
 
     private void InputSymbol(UISymbolButton symbolButton)
     {
-        char c = firstSymbolInputMode ? symbolButton.FirstSymbol : symbolButton.SecondSymbol;
+        char c = _firstSymbolInputMode ? symbolButton.FirstSymbol : symbolButton.SecondSymbol;
 
-        inputField.text += c;
-    }
-
-    public void RemoveLastSymbol()
-    {
-        int l = inputField.text.Length;
-
-        if (l > 0)
-        {
-            inputField.text = inputField.text.Remove(l - 1);
-        }
-    }
-
-    public void InputEnterLine()
-    {
-        inputField.text += "\n";
-    }
-
-    public void InputSpaceSymbol()
-    {
-        inputField.text += " ";
-    }
-
-    public void SwitchInputMode()
-    {
-        firstSymbolInputMode = !firstSymbolInputMode;
+        _inputField.text += c;
     }
 
     private void ExpandPanel(UIExpandButton button)
     {
-        foreach (var btn in expandButtons)
+        foreach (var btn in _expandButtons)
         {
             if (btn.IsActive)
             {
@@ -81,21 +85,47 @@ public class UIFileEditor : MonoBehaviour
         button.Expand();
     }
 
+    public void RemoveLastSymbol()
+    {
+        int l = _inputField.text.Length;
+
+        if (l > 0)
+        {
+            _inputField.text = _inputField.text.Remove(l - 1);
+        }
+    }
+
+    public void InputEnterLine()
+    {
+        _inputField.text += "\n";
+    }
+
+    public void InputSpaceSymbol()
+    {
+        _inputField.text += " ";
+    }
+
+    public void SwitchInputMode()
+    {
+        _firstSymbolInputMode = !_firstSymbolInputMode;
+    }
+
     public void OpenFile(FileData file)
     {
-        if(file != null)
+        if (file != null)
         {
-            inputField.text = appManager.LoadFile(file.path);
-        } else
+            _inputField.text = AppManager.Instance.LoadFile(file.Path);
+        }
+        else
         {
-            inputField.text = string.Empty;
+            _inputField.text = string.Empty;
         }
 
-        currentFile = file;
+        _currentFile = file;
     }
 
     public void SaveFile()
     {
-        appManager.SaveFile(currentFile, inputField.text);
+        AppManager.Instance.SaveFile(_currentFile, _inputField.text);
     }
 }

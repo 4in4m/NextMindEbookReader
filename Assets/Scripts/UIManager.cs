@@ -3,219 +3,171 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
-using UnityEngine.EventSystems;
+using UnityEngine.Events;
+using NextMind.NeuroTags;
 
 public class UIManager : MonoBehaviour
 {
-    [SerializeField] private AppManager appManager;
 
-    [Header("Books")]
+    [SerializeField] private GameObject _mainMenu;
 
-    [SerializeField] private RectTransform booksListParent;
+    [SerializeField] private RectTransform _fileListParent;
 
-    [SerializeField] private GameObject booksListPanel;
+    [SerializeField] private UIFileEditor _fileEditor;
 
-    [SerializeField] private GameObject bookContentPanel;
+    [SerializeField] private UIBookViewer _bookViewer;
 
-    [SerializeField] private TMP_Text bookContentText;
+    [SerializeField] private Button _newFileButton;
 
-    [SerializeField] private Button booksButton;
+    [SerializeField] private Button _importButton;
 
-    [Header("Files")]
+    [SerializeField] private Button _extraButton;
 
-    [SerializeField] private RectTransform filesListParent;
+    [SerializeField] private GameObject _extraPanel;
 
-    [SerializeField] private GameObject filesListPanel;
+    [SerializeField] private Button _pageUpButton;
 
-    [SerializeField] private UIFileEditor fileEditor;
+    [SerializeField] private Button _pageDownButton;
 
-    private GameObject[] booksSlots;
-    private GameObject[] filesSlots;
-    private GameObject openedPanel;
-    private Button pressedButton;
+    private UIFileSlot[] _filesSlots;
+
+    private GameObject _openedPanel;
 
     void Start()
     {
-        appManager.booksListChanged += UpdateBooksListUI;
-        appManager.filesListChanged += UpdateFilesListUI;
+        AppManager.Instance.filesListChanged += UpdateFilesListUI;
 
-        booksSlots = new GameObject[booksListParent.childCount];
-        for (int i = 0; i < booksSlots.Length; i++)
-        {
-            booksSlots[i] = booksListParent.GetChild(i).gameObject;
-        }
+        _filesSlots = _fileListParent.GetComponentsInChildren<UIFileSlot>();
 
-        filesSlots = new GameObject[filesListParent.childCount];
-        for (int i = 0; i < filesSlots.Length; i++)
-        {
-            filesSlots[i] = filesListParent.GetChild(i).gameObject;
-        }
-
-        UpdateBooksListUI();
         UpdateFilesListUI();
 
-        OpenPanel(booksListPanel);
-        pressedButton = booksButton;
-        pressedButton.interactable = false;
+        OpenPanel(_mainMenu);
+
+        _importButton.onClick.AddListener(() => OpenImportPanel());
+        _importButton.GetComponentInChildren<NeuroTag>().onTriggered.AddListener(() => OpenImportPanel());
+
+        _extraButton.onClick.AddListener(() => OpenPanel(_extraPanel));
+        _extraButton.GetComponentInChildren<NeuroTag>().onTriggered.AddListener(() => OpenPanel(_extraPanel));
+
+        UnityAction createNewFile = new UnityAction(() =>
+        {
+            _fileEditor.OpenFile(null);
+
+            OpenPanel(_fileEditor.gameObject);
+        });
+
+        _newFileButton.onClick.AddListener(createNewFile);
+        _newFileButton.GetComponentInChildren<NeuroTag>().onTriggered.AddListener(createNewFile);
+
+        _pageUpButton.onClick.AddListener(() => PageUp());
+        _pageUpButton.GetComponentInChildren<NeuroTag>().onTriggered.AddListener(() => PageUp());
+
+        _pageDownButton.onClick.AddListener(() => PageDown());
+        _pageDownButton.GetComponentInChildren<NeuroTag>().onTriggered.AddListener(() => PageDown());
+    }
+
+    private void PageUp()
+    {
+        //
+    }
+
+    private void PageDown()
+    {
+        //
     }
 
     public void OpenImportPanel()
     {
-        appManager.ShowLoadDialog();
+        AppManager.Instance.ShowLoadDialog();
     }
 
     public void OpenPanel(GameObject panel)
     {
-        if (openedPanel != null)
+        if (_openedPanel != null)
         {
-            openedPanel.SetActive(false);
-            pressedButton.interactable = true;
+            _openedPanel.SetActive(false);
         }
 
-        openedPanel = panel;
-        
-        pressedButton = EventSystem.current.currentSelectedGameObject?.GetComponent<Button>();
-        if (pressedButton != null)
-        {
-            pressedButton.interactable = false;
-        }
+        _openedPanel = panel;
 
-        openedPanel.SetActive(true);
+        _openedPanel.SetActive(true);
     }
 
-    private void UpdateBooksListUI()
+    public void OpenMainMenu()
     {
-        for (int i = 0; i < booksSlots.Length; i++)
-        {
-            if(appManager.booksData == null || i >= appManager.booksData.books.Count || appManager.booksData.books[i] == null || appManager.booksData.books[i].path == string.Empty)
-            {
-                booksSlots[i].SetActive(false);
-                continue;
-            }
-
-            GameObject slot = booksSlots[i];
-            int slotIndex = slot.transform.GetSiblingIndex();
-
-            slot.SetActive(true);
-            slot.GetComponentInChildren<TMP_Text>().text = appManager.booksData.books[i].name;
-
-            Button[] buttons = slot.GetComponentsInChildren<Button>();
-
-            foreach (var btn in buttons)
-            {
-                btn.onClick.RemoveAllListeners();
-            }
-
-            buttons[0].onClick.AddListener(() => OpenBook(slotIndex));
-            buttons[1].onClick.AddListener(() => RemoveBook(slotIndex));
-        }
+        OpenPanel(_mainMenu);
     }
 
     private void UpdateFilesListUI()
     {
-        for (int i = 0; i < booksSlots.Length; i++)
+        var appManager = AppManager.Instance;
+
+        for (int i = 0; i < _filesSlots.Length; i++)
         {
-            if (appManager.filesData == null || i >= appManager.filesData.files.Count || appManager.filesData.files[i] == null || appManager.filesData.files[i].path == string.Empty)
+            if (appManager.FilesData == null || i >= appManager.FilesData.Files.Count || appManager.FilesData.Files[i] == null || appManager.FilesData.Files[i].Path == string.Empty)
             {
-                filesSlots[i].SetActive(false);
+                _filesSlots[i].gameObject.SetActive(false);
                 continue;
             }
 
-            GameObject slot = filesSlots[i];
-            int slotIndex = slot.transform.GetSiblingIndex();
+            var file = appManager.FilesData.Files[i];
+            var slot = _filesSlots[i];
 
-            slot.SetActive(true);
-            slot.GetComponentInChildren<TMP_Text>().text = appManager.filesData.files[i].name;
+            Sprite cover = null;
 
-            Button[] buttons = slot.GetComponentsInChildren<Button>();
-
-            foreach (var btn in buttons)
+            if (file.ImagePath != string.Empty)
             {
-                btn.onClick.RemoveAllListeners();
+                cover = appManager.LoadSprite(appManager.FilesData.Files[i].ImagePath);
             }
 
-            buttons[0].onClick.AddListener(() => OpenFile(slotIndex));
-            buttons[1].onClick.AddListener(() => RemoveFile(slotIndex));
+            UnityAction openFile = new UnityAction(() =>
+            {
+                OpenFile(file);
+            });
+
+            slot.Init(cover, appManager.FilesData.Files[i].Name, openFile);
         }
     }
 
-    public void OpenBook(int index)
+    public void OpenFile(FileData file)
     {
-        BookData book = appManager.GetBook(index);
+        var appManager = AppManager.Instance;
 
-        OpenPanel(bookContentPanel);
+        switch(file.Type)
+        {
+            case FileData.FileType.Book:
+                string text = appManager.LoadFile(file.Path);
 
-        string text = appManager.LoadFile(book.path);
+                _bookViewer.DisplayFile(file);
 
-        ViewBookText(text);
+                OpenPanel(_bookViewer.gameObject);
+                break;
+            case FileData.FileType.UserFile:
+                _fileEditor.OpenFile(file);
+
+                OpenPanel(_fileEditor.gameObject);
+                break;
+        }
     }
 
-    public void RemoveBook(int index)
+    public void EditFile(FileData file)
     {
-        appManager.RemoveBook(index);
-        UpdateBooksListUI();
-    }
+        OpenPanel(_fileEditor.gameObject);
 
-    public void RemoveFile(int index)
-    {
-        appManager.RemoveFile(index);
-        UpdateFilesListUI();
-    }
-
-    public void OpenFile(int index)
-    {
-        FileData file = appManager.GetFile(index);
-
-        fileEditor.OpenFile(file);
-
-        OpenPanel(fileEditor.gameObject);
+        _fileEditor.OpenFile(file);
     }
 
     public void SaveFile()
     {
-        fileEditor.SaveFile();
+        _fileEditor.SaveFile();
 
-        OpenPanel(filesListPanel);
+        OpenPanel(_mainMenu);
     }
 
-    public void NextPage()
+    public void RemoveFile(FileData file)
     {
-        if (bookContentText.pageToDisplay >= bookContentText.textInfo.pageCount)
-        {
-            appManager.curCharIndex += 16383;
-            string newText = appManager.curText.Substring(appManager.curCharIndex, 16383);
-            bookContentText.text = newText;
-            bookContentText.pageToDisplay = 1;
-        } else
-        {
-            bookContentText.pageToDisplay++;
-        }
-    }
+        AppManager.Instance.RemoveFile(file);
 
-    public void PrevPage()
-    {
-        if (bookContentText.pageToDisplay > 1)
-        {
-            bookContentText.pageToDisplay--;
-        }
-        else if (appManager.curCharIndex >= 16383)
-        {
-            appManager.curCharIndex -= 16383;
-            string newText = appManager.curText.Substring(appManager.curCharIndex, 16383);
-            bookContentText.text = newText;
-            bookContentText.ForceMeshUpdate();
-            bookContentText.pageToDisplay = bookContentText.textInfo.pageCount;
-        }
-    }
-
-    private void ViewBookText(string _text)
-    {
-        appManager.curText = _text;
-
-        string text = _text.Substring(0, 16383);
-        bookContentText.text = text;
-        bookContentText.ForceMeshUpdate();
-
-        Debug.Log(bookContentText.firstOverflowCharacterIndex);
+        UpdateFilesListUI();
     }
 }

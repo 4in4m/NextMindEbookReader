@@ -2,6 +2,7 @@
 using FB2Library.Elements;
 using FB2Library.Elements.Poem;
 using System;
+using System.IO;
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -176,5 +177,63 @@ public class FB2SampleConverter: MonoBehaviour
         }
 
         return text;
+    }
+
+    public List<Texture2D> GetImages()
+    {
+        var textures = new List<Texture2D>();
+        var tex = new Texture2D(2, 2);
+
+        for (int i = 0; i < _lines.Count; i++)
+        {
+            if (_lines[i] is ImageLine)
+            {
+                ImageLine imageItem = _lines[i] as ImageLine;
+
+                tex.LoadImage(imageItem.Data);
+
+                textures.Add(tex);
+            }
+        }
+
+        return textures;
+    }
+
+    public Texture2D GetImage(int index)
+    {
+        if (_lines != null || index < 0 || _lines.Count >= index)
+        {
+            return null;
+        }
+
+        Texture2D tex = null;
+
+        if (_lines[index] is ImageLine)
+        {
+            ImageLine imageItem = _lines[index] as ImageLine;
+
+            tex.LoadImage(imageItem.Data);
+        }
+
+        return tex;
+    }
+
+    public byte[] GetImageData(int index)
+    {
+        if (_lines != null || index < 0 || _lines.Count >= index)
+        {
+            return null;
+        }
+
+        byte[] data = null;
+
+        if (_lines[index] is ImageLine)
+        {
+            ImageLine imageItem = _lines[index] as ImageLine;
+
+            data = imageItem.Data;
+        }
+
+        return data;
     }
 }
