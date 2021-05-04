@@ -88,7 +88,7 @@ public class AppManager : MonoBehaviour
                 var lines = await _fB2SampleConverter.ConvertAsync(file);
                 string finalText = _fB2SampleConverter.GetLinesAsText();
 
-                byte[] imageData = _fB2SampleConverter.GetImageData(0);
+                byte[] imageData = _fB2SampleConverter.GetCoverImageData();
 
                 string imagePath = Application.persistentDataPath + _folderName + fileName + ".jpg"; ;
 
@@ -160,6 +160,18 @@ public class AppManager : MonoBehaviour
     public void RemoveFile(FileData file)
     {
         FileBrowserHelpers.DeleteFile(file.Path);
+
+        if (file.ImagePath != string.Empty)
+        {
+            try
+            {
+                FileBrowserHelpers.DeleteFile(file.ImagePath);
+            }
+            catch
+            {
+                Debug.Log("Image not destroyed.");
+            }
+        }
 
         FilesData.Files.Remove(file);
 

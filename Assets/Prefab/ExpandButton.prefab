@@ -339,7 +339,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c0c2af705cc44674c8a68ffa4a081724, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  expandPanel: {fileID: 1192483449252415470}
+  _expandPanel: {fileID: 1192483449252415470}
+  _symbolButtonsParent: {fileID: 1192483449252415469}
 --- !u!1 &7712355803001315579
 GameObject:
   m_ObjectHideFlags: 0

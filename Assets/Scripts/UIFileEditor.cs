@@ -30,24 +30,19 @@ public class UIFileEditor : MonoBehaviour
 
     void Awake()
     {
-        UISymbolButton[] buttons = Resources.FindObjectsOfTypeAll(typeof(UISymbolButton)) as UISymbolButton[];
-
-        foreach (var button in buttons)
-        {
-            button.GetComponent<Button>().onClick.AddListener(() => InputSymbol(button));
-            button.GetComponentInChildren<NeuroTag>().onTriggered.AddListener(() => InputSymbol(button));
-        }
+        UIManager uIManager = transform.root.GetComponent<UIManager>();
 
         foreach (var btn in _expandButtons)
         {
             btn.GetComponent<Button>().onClick.AddListener(() => ExpandPanel(btn));
             btn.GetComponentInChildren<NeuroTag>().onTriggered.AddListener(() => ExpandPanel(btn));
+
+            btn.onExpanded += HideControls;
+            btn.onClosed += DisplayControls;
         }
 
         _saveButton.onClick.AddListener(() => SaveFile());
         _saveButton.GetComponentInChildren<NeuroTag>().onTriggered.AddListener(() => SaveFile());
-
-        UIManager uIManager = transform.root.GetComponent<UIManager>();
 
         _closeButton.onClick.AddListener(() => uIManager.OpenFile(_currentFile));
         _closeButton.GetComponentInChildren<NeuroTag>().onTriggered.AddListener(() => uIManager.OpenFile(_currentFile));
@@ -63,6 +58,67 @@ public class UIFileEditor : MonoBehaviour
 
         _symbolModeButton.onClick.AddListener(() => SwitchInputMode());
         _symbolModeButton.GetComponentInChildren<NeuroTag>().onTriggered.AddListener(() => SwitchInputMode());
+    }
+
+    private void Start()
+    {
+        foreach (var expandButton in _expandButtons)
+        {
+            foreach (var button in expandButton.SymbolButtons)
+            {
+                button.GetComponent<Button>().onClick.AddListener(() =>
+                {
+                    InputSymbol(button);
+                    expandButton.Close();
+                    DisplayControls(expandButton);
+                });
+
+                button.GetComponentInChildren<NeuroTag>().onTriggered.AddListener(() =>
+                {
+                    InputSymbol(button);
+                    expandButton.Close();
+                    DisplayControls(expandButton);
+                });
+            }
+        }
+    }
+
+    private void DisplayControls(UIExpandButton pressedButton)
+    {
+        _saveButton.gameObject.SetActive(true);
+        _closeButton.gameObject.SetActive(true);
+
+        _backspaceButton.gameObject.SetActive(true);
+        _spaceButton.gameObject.SetActive(true);
+        _enterButton.gameObject.SetActive(true);
+        _symbolModeButton.gameObject.SetActive(true);
+
+        foreach (var item in _expandButtons)
+        {
+            if (item != pressedButton)
+            {
+                item.gameObject.SetActive(true);
+            }
+        }
+    }
+
+    private void HideControls(UIExpandButton pressedButton)
+    {
+        _saveButton.gameObject.SetActive(false);
+        _closeButton.gameObject.SetActive(false);
+
+        _backspaceButton.gameObject.SetActive(false);
+        _spaceButton.gameObject.SetActive(false);
+        _enterButton.gameObject.SetActive(false);
+        _symbolModeButton.gameObject.SetActive(false);
+
+        foreach (var item in _expandButtons)
+        {
+            if (item != pressedButton)
+            {
+                item.gameObject.SetActive(false);
+            }
+        }
     }
 
     private void InputSymbol(UISymbolButton symbolButton)

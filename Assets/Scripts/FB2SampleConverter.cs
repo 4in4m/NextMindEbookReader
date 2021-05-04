@@ -36,6 +36,8 @@ public class FB2SampleConverter: MonoBehaviour
 
     public virtual async Task<IEnumerable<ILine>> ConvertAsync(FB2File file)
     {
+        _lines.Clear();
+
         return await Task.Factory.StartNew(() =>
         {
             _file = file;
@@ -181,6 +183,11 @@ public class FB2SampleConverter: MonoBehaviour
 
     public List<Texture2D> GetImages()
     {
+        if (_lines == null || _lines.Count == 0)
+        {
+            return null;
+        }
+
         var textures = new List<Texture2D>();
         var tex = new Texture2D(2, 2);
 
@@ -201,7 +208,7 @@ public class FB2SampleConverter: MonoBehaviour
 
     public Texture2D GetImage(int index)
     {
-        if (_lines != null || index < 0 || _lines.Count >= index)
+        if (_lines == null || index < 0 || _lines.Count >= index)
         {
             return null;
         }
@@ -220,7 +227,7 @@ public class FB2SampleConverter: MonoBehaviour
 
     public byte[] GetImageData(int index)
     {
-        if (_lines != null || index < 0 || _lines.Count >= index)
+        if (_lines == null || index < 0 || _lines.Count >= index)
         {
             return null;
         }
@@ -235,5 +242,25 @@ public class FB2SampleConverter: MonoBehaviour
         }
 
         return data;
+    }
+
+    public byte[] GetCoverImageData()
+    {
+        if (_lines == null || _lines.Count == 0)
+        {
+            return null;
+        }
+
+        foreach (var item in _lines)
+        {
+            if (item is ImageLine)
+            {
+                ImageLine imageItem = item as ImageLine;
+
+                return imageItem.Data;
+            }
+        }
+
+        return null;
     }
 }

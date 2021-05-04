@@ -47,6 +47,17 @@ public class UIBookViewer : MonoBehaviour
 
         _editButton.onClick.AddListener(() => uIManager.EditFile(_currentFile));
         _editButton.GetComponentInChildren<NeuroTag>().onTriggered.AddListener(() => uIManager.EditFile(_currentFile));
+
+        _deleteButton.onClick.AddListener(() =>
+        {
+            AppManager.Instance.RemoveFile(_currentFile);
+            uIManager.OpenMainMenu();
+        });
+        _deleteButton.GetComponentInChildren<NeuroTag>().onTriggered.AddListener(() =>
+        {
+            AppManager.Instance.RemoveFile(_currentFile);
+            uIManager.OpenMainMenu();
+        });
     }
 
     public void NextPage()

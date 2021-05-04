@@ -1,15 +1,27 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Events;
 
 public class UIExpandButton : MonoBehaviour
 {
-    [SerializeField] private GameObject expandPanel;
+    [SerializeField] private GameObject _expandPanel;
+
+    [SerializeField] private RectTransform _symbolButtonsParent;
 
     public bool IsActive { get; private set; }
+
+    public UISymbolButton[] SymbolButtons { get; private set; }
+
+    public delegate void OnTriggered(UIExpandButton button);
+    public OnTriggered onExpanded;
+    public OnTriggered onClosed;
 
     private void Awake()
     {
         Close();
+
+        SymbolButtons = _symbolButtonsParent.GetComponentsInChildren<UISymbolButton>();
     }
 
     public void Expand()
@@ -17,7 +29,9 @@ public class UIExpandButton : MonoBehaviour
         IsActive = true;
 
         GetComponent<Image>().enabled = false;
-        expandPanel.SetActive(true);
+        _expandPanel.SetActive(true);
+
+        onExpanded?.Invoke(this);
     }
 
     public void Close()
@@ -25,6 +39,8 @@ public class UIExpandButton : MonoBehaviour
         IsActive = false;
 
         GetComponent<Image>().enabled = true;
-        expandPanel.SetActive(false);
+        _expandPanel.SetActive(false);
+
+        onClosed?.Invoke(this);
     }
 }

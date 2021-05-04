@@ -46,8 +46,8 @@ public class UIManager : MonoBehaviour
         _importButton.onClick.AddListener(() => OpenImportPanel());
         _importButton.GetComponentInChildren<NeuroTag>().onTriggered.AddListener(() => OpenImportPanel());
 
-        _extraButton.onClick.AddListener(() => OpenPanel(_extraPanel));
-        _extraButton.GetComponentInChildren<NeuroTag>().onTriggered.AddListener(() => OpenPanel(_extraPanel));
+        _extraButton.onClick.AddListener(() => _extraPanel.SetActive(!_extraPanel.activeSelf));
+        _extraButton.GetComponentInChildren<NeuroTag>().onTriggered.AddListener(() => _extraPanel.SetActive(!_extraPanel.activeSelf));
 
         UnityAction createNewFile = new UnityAction(() =>
         {
