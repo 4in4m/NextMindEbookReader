@@ -1,113 +1,120 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using NextMind.NeuroTags;
 
-public class UIBookViewer : MonoBehaviour
+namespace EBookReader
 {
-    [SerializeField] private TMP_Text _contentText;
-
-    [SerializeField] private Button _nextPageButton;
-
-    [SerializeField] private Button _prevPageButton;
-
-    [SerializeField] private Button _backButton;
-
-    [SerializeField] private Button _speakButton;
-
-    [SerializeField] private Button _zoomOutButton;
-
-    [SerializeField] private Button _zoomInButton;
-
-    [SerializeField] private Button _colorModeButton;
-
-    [SerializeField] private Button _editButton;
-
-    [SerializeField] private Button _editNameButton;
-
-    [SerializeField] private Button _deleteButton;
-
-    private FileData _currentFile;
-    private string _currentText;
-    private int _curCharIndex;
-
-    private void Awake()
+    public class UIBookViewer : MonoBehaviour
     {
-        _nextPageButton.onClick.AddListener(() => NextPage());
-        _nextPageButton.GetComponentInChildren<NeuroTag>().onTriggered.AddListener(() => NextPage());
+        [SerializeField] private UIColorSwitcher _colorSwitcher;
 
-        _prevPageButton.onClick.AddListener(() => PrevPage());
-        _prevPageButton.GetComponentInChildren<NeuroTag>().onTriggered.AddListener(() => PrevPage());
+        [SerializeField] private TMP_Text _contentText;
 
-        UIManager uIManager = transform.root.GetComponent<UIManager>();
+        [SerializeField] private Button _nextPageButton;
 
-        _backButton.onClick.AddListener(() => uIManager.OpenMainMenu());
-        _backButton.GetComponentInChildren<NeuroTag>().onTriggered.AddListener(() => uIManager.OpenMainMenu());
+        [SerializeField] private Button _prevPageButton;
 
-        _editButton.onClick.AddListener(() => uIManager.EditFile(_currentFile));
-        _editButton.GetComponentInChildren<NeuroTag>().onTriggered.AddListener(() => uIManager.EditFile(_currentFile));
+        [SerializeField] private Button _backButton;
 
-        _deleteButton.onClick.AddListener(() =>
+        [SerializeField] private Button _speakButton;
+
+        [SerializeField] private Button _zoomOutButton;
+
+        [SerializeField] private Button _zoomInButton;
+
+        [SerializeField] private Button _colorModeButton;
+
+        [SerializeField] private Button _editButton;
+
+        [SerializeField] private Button _editNameButton;
+
+        [SerializeField] private Button _deleteButton;
+
+        private FileData _currentFile;
+        private string _currentText;
+        private int _curCharIndex;
+
+        private void Awake()
         {
-            AppManager.Instance.RemoveFile(_currentFile);
-            uIManager.OpenMainMenu();
-        });
-        _deleteButton.GetComponentInChildren<NeuroTag>().onTriggered.AddListener(() =>
-        {
-            AppManager.Instance.RemoveFile(_currentFile);
-            uIManager.OpenMainMenu();
-        });
-    }
+            _nextPageButton.onClick.AddListener(() => NextPage());
+            _nextPageButton.GetComponentInChildren<NeuroTag>().onTriggered.AddListener(() => NextPage());
 
-    public void NextPage()
-    {
-        if (_contentText.pageToDisplay >= _contentText.textInfo.pageCount)
-        {
-            _curCharIndex += 16383;
+            _prevPageButton.onClick.AddListener(() => PrevPage());
+            _prevPageButton.GetComponentInChildren<NeuroTag>().onTriggered.AddListener(() => PrevPage());
 
-            string newText = _currentText.Substring(_curCharIndex, 16383);
+            UIManager uIManager = transform.root.GetComponent<UIManager>();
 
-            _contentText.text = newText;
-            _contentText.pageToDisplay = 1;
+            _backButton.onClick.AddListener(() => uIManager.OpenMainMenu());
+            _backButton.GetComponentInChildren<NeuroTag>().onTriggered.AddListener(() => uIManager.OpenMainMenu());
+
+            _editButton.onClick.AddListener(() => uIManager.EditFile(_currentFile));
+            _editButton.GetComponentInChildren<NeuroTag>().onTriggered.AddListener(() => uIManager.EditFile(_currentFile));
+
+            _deleteButton.onClick.AddListener(() =>
+            {
+                AppManager.Instance.RemoveFile(_currentFile);
+                uIManager.OpenMainMenu();
+            });
+            _deleteButton.GetComponentInChildren<NeuroTag>().onTriggered.AddListener(() =>
+            {
+                AppManager.Instance.RemoveFile(_currentFile);
+                uIManager.OpenMainMenu();
+            });
+
+            _colorModeButton.onClick.AddListener(() => _colorSwitcher.SwitchColor());
+            _colorModeButton.GetComponentInChildren<NeuroTag>().onTriggered.AddListener(() => _colorSwitcher.SwitchColor());
         }
-        else
-        {
-            _contentText.pageToDisplay++;
-        }
-    }
 
-    public void PrevPage()
-    {
-        if (_contentText.pageToDisplay > 1)
+        public void NextPage()
         {
-            _contentText.pageToDisplay--;
-        }
-        else if (_curCharIndex >= 16383)
-        {
-            _curCharIndex -= 16383;
+            if (_contentText.pageToDisplay >= _contentText.textInfo.pageCount)
+            {
+                _curCharIndex += 16383;
 
-            string newText = _currentText.Substring(_curCharIndex, 16383);
+                string newText = _currentText.Substring(_curCharIndex, 16383);
+
+                _contentText.text = newText;
+                _contentText.pageToDisplay = 1;
+            }
+            else
+            {
+                _contentText.pageToDisplay++;
+            }
+        }
+
+        public void PrevPage()
+        {
+            if (_contentText.pageToDisplay > 1)
+            {
+                _contentText.pageToDisplay--;
+            }
+            else if (_curCharIndex >= 16383)
+            {
+                _curCharIndex -= 16383;
+
+                string newText = _currentText.Substring(_curCharIndex, 16383);
+
+                _contentText.text = newText;
+                _contentText.ForceMeshUpdate();
+                _contentText.pageToDisplay = _contentText.textInfo.pageCount;
+            }
+        }
+
+        public void DisplayFile(FileData file)
+        {
+            _currentFile = file;
+
+            string text = AppManager.Instance.LoadFile(_currentFile.Path);
+
+            _currentText = text;
+
+            string newText = text.Substring(0, 16383);
 
             _contentText.text = newText;
             _contentText.ForceMeshUpdate();
-            _contentText.pageToDisplay = _contentText.textInfo.pageCount;
+
+            Debug.Log(_contentText.firstOverflowCharacterIndex);
         }
-    }
-
-    public void DisplayFile(FileData file)
-    {
-        _currentFile = file;
-
-        string text = AppManager.Instance.LoadFile(_currentFile.Path);
-
-        _currentText = text;
-
-        string newText = text.Substring(0, 16383);
-
-        _contentText.text = newText;
-        _contentText.ForceMeshUpdate();
-
-        Debug.Log(_contentText.firstOverflowCharacterIndex);
     }
 }

@@ -261,3 +261,4 @@ D:\Projects\Work\NextMind\Unity\NextMindEbookReader\obj\Debug\NextMind.UnitySDK.
 D:\Projects\Work\NextMind\Unity\NextMindEbookReader\obj\Debug\NextMind.UnitySDK.Runtime.csproj.CopyComplete
 D:\Projects\Work\NextMind\Unity\NextMindEbookReader\obj\Debug\NextMind.UnitySDK.Runtime.dll
 D:\Projects\Work\NextMind\Unity\NextMindEbookReader\obj\Debug\NextMind.UnitySDK.Runtime.pdb
+D:\Projects\Work\NextMind\Unity\NextMindEbookReader\Temp\bin\Debug\WearHFPlugin.dll

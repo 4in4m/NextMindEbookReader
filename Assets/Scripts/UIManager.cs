@@ -1,173 +1,173 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using TMPro;
+﻿using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Events;
 using NextMind.NeuroTags;
 
-public class UIManager : MonoBehaviour
+namespace EBookReader
 {
-
-    [SerializeField] private GameObject _mainMenu;
-
-    [SerializeField] private RectTransform _fileListParent;
-
-    [SerializeField] private UIFileEditor _fileEditor;
-
-    [SerializeField] private UIBookViewer _bookViewer;
-
-    [SerializeField] private Button _newFileButton;
-
-    [SerializeField] private Button _importButton;
-
-    [SerializeField] private Button _extraButton;
-
-    [SerializeField] private GameObject _extraPanel;
-
-    [SerializeField] private Button _pageUpButton;
-
-    [SerializeField] private Button _pageDownButton;
-
-    private UIFileSlot[] _filesSlots;
-
-    private GameObject _openedPanel;
-
-    void Start()
+    public class UIManager : MonoBehaviour
     {
-        AppManager.Instance.filesListChanged += UpdateFilesListUI;
 
-        _filesSlots = _fileListParent.GetComponentsInChildren<UIFileSlot>();
+        [SerializeField] private GameObject _mainMenu;
 
-        UpdateFilesListUI();
+        [SerializeField] private RectTransform _fileListParent;
 
-        OpenPanel(_mainMenu);
+        [SerializeField] private UIFileEditor _fileEditor;
 
-        _importButton.onClick.AddListener(() => OpenImportPanel());
-        _importButton.GetComponentInChildren<NeuroTag>().onTriggered.AddListener(() => OpenImportPanel());
+        [SerializeField] private UIBookViewer _bookViewer;
 
-        _extraButton.onClick.AddListener(() => _extraPanel.SetActive(!_extraPanel.activeSelf));
-        _extraButton.GetComponentInChildren<NeuroTag>().onTriggered.AddListener(() => _extraPanel.SetActive(!_extraPanel.activeSelf));
+        [SerializeField] private Button _newFileButton;
 
-        UnityAction createNewFile = new UnityAction(() =>
+        [SerializeField] private Button _importButton;
+
+        [SerializeField] private Button _extraButton;
+
+        [SerializeField] private GameObject _extraPanel;
+
+        [SerializeField] private Button _pageUpButton;
+
+        [SerializeField] private Button _pageDownButton;
+
+        private UIFileSlot[] _filesSlots;
+
+        private GameObject _openedPanel;
+
+        void Start()
         {
-            _fileEditor.OpenFile(null);
+            AppManager.Instance.filesListChanged += UpdateFilesListUI;
 
-            OpenPanel(_fileEditor.gameObject);
-        });
+            _filesSlots = _fileListParent.GetComponentsInChildren<UIFileSlot>();
 
-        _newFileButton.onClick.AddListener(createNewFile);
-        _newFileButton.GetComponentInChildren<NeuroTag>().onTriggered.AddListener(createNewFile);
+            UpdateFilesListUI();
 
-        _pageUpButton.onClick.AddListener(() => PageUp());
-        _pageUpButton.GetComponentInChildren<NeuroTag>().onTriggered.AddListener(() => PageUp());
+            OpenPanel(_mainMenu);
 
-        _pageDownButton.onClick.AddListener(() => PageDown());
-        _pageDownButton.GetComponentInChildren<NeuroTag>().onTriggered.AddListener(() => PageDown());
-    }
+            _importButton.onClick.AddListener(() => OpenImportPanel());
+            _importButton.GetComponentInChildren<NeuroTag>().onTriggered.AddListener(() => OpenImportPanel());
 
-    private void PageUp()
-    {
-        //
-    }
+            _extraButton.onClick.AddListener(() => _extraPanel.SetActive(!_extraPanel.activeSelf));
+            _extraButton.GetComponentInChildren<NeuroTag>().onTriggered.AddListener(() => _extraPanel.SetActive(!_extraPanel.activeSelf));
 
-    private void PageDown()
-    {
-        //
-    }
-
-    public void OpenImportPanel()
-    {
-        AppManager.Instance.ShowLoadDialog();
-    }
-
-    public void OpenPanel(GameObject panel)
-    {
-        if (_openedPanel != null)
-        {
-            _openedPanel.SetActive(false);
-        }
-
-        _openedPanel = panel;
-
-        _openedPanel.SetActive(true);
-    }
-
-    public void OpenMainMenu()
-    {
-        OpenPanel(_mainMenu);
-    }
-
-    private void UpdateFilesListUI()
-    {
-        var appManager = AppManager.Instance;
-
-        for (int i = 0; i < _filesSlots.Length; i++)
-        {
-            if (appManager.FilesData == null || i >= appManager.FilesData.Files.Count || appManager.FilesData.Files[i] == null || appManager.FilesData.Files[i].Path == string.Empty)
+            UnityAction createNewFile = new UnityAction(() =>
             {
-                _filesSlots[i].gameObject.SetActive(false);
-                continue;
-            }
-
-            var file = appManager.FilesData.Files[i];
-            var slot = _filesSlots[i];
-
-            Sprite cover = null;
-
-            if (file.ImagePath != string.Empty)
-            {
-                cover = appManager.LoadSprite(appManager.FilesData.Files[i].ImagePath);
-            }
-
-            UnityAction openFile = new UnityAction(() =>
-            {
-                OpenFile(file);
-            });
-
-            slot.Init(cover, appManager.FilesData.Files[i].Name, openFile);
-        }
-    }
-
-    public void OpenFile(FileData file)
-    {
-        var appManager = AppManager.Instance;
-
-        switch(file.Type)
-        {
-            case FileData.FileType.Book:
-                string text = appManager.LoadFile(file.Path);
-
-                _bookViewer.DisplayFile(file);
-
-                OpenPanel(_bookViewer.gameObject);
-                break;
-            case FileData.FileType.UserFile:
-                _fileEditor.OpenFile(file);
+                _fileEditor.OpenFile(null);
 
                 OpenPanel(_fileEditor.gameObject);
-                break;
+            });
+
+            _newFileButton.onClick.AddListener(createNewFile);
+            _newFileButton.GetComponentInChildren<NeuroTag>().onTriggered.AddListener(createNewFile);
+
+            _pageUpButton.onClick.AddListener(() => PageUp());
+            _pageUpButton.GetComponentInChildren<NeuroTag>().onTriggered.AddListener(() => PageUp());
+
+            _pageDownButton.onClick.AddListener(() => PageDown());
+            _pageDownButton.GetComponentInChildren<NeuroTag>().onTriggered.AddListener(() => PageDown());
         }
-    }
 
-    public void EditFile(FileData file)
-    {
-        OpenPanel(_fileEditor.gameObject);
+        private void PageUp()
+        {
+            //
+        }
 
-        _fileEditor.OpenFile(file);
-    }
+        private void PageDown()
+        {
+            //
+        }
 
-    public void SaveFile()
-    {
-        _fileEditor.SaveFile();
+        public void OpenImportPanel()
+        {
+            AppManager.Instance.ShowLoadDialog();
+        }
 
-        OpenPanel(_mainMenu);
-    }
+        public void OpenPanel(GameObject panel)
+        {
+            if (_openedPanel != null)
+            {
+                _openedPanel.SetActive(false);
+            }
 
-    public void RemoveFile(FileData file)
-    {
-        AppManager.Instance.RemoveFile(file);
+            _openedPanel = panel;
 
-        UpdateFilesListUI();
+            _openedPanel.SetActive(true);
+        }
+
+        public void OpenMainMenu()
+        {
+            OpenPanel(_mainMenu);
+        }
+
+        private void UpdateFilesListUI()
+        {
+            var appManager = AppManager.Instance;
+
+            for (int i = 0; i < _filesSlots.Length; i++)
+            {
+                if (appManager.FilesData == null || i >= appManager.FilesData.Files.Count || appManager.FilesData.Files[i] == null || appManager.FilesData.Files[i].Path == string.Empty)
+                {
+                    _filesSlots[i].gameObject.SetActive(false);
+                    continue;
+                }
+
+                var file = appManager.FilesData.Files[i];
+                var slot = _filesSlots[i];
+
+                Sprite cover = null;
+
+                if (file.ImagePath != string.Empty)
+                {
+                    cover = appManager.LoadSprite(appManager.FilesData.Files[i].ImagePath);
+                }
+
+                UnityAction openFile = new UnityAction(() =>
+                {
+                    OpenFile(file);
+                });
+
+                slot.Init(cover, appManager.FilesData.Files[i].Name, openFile);
+            }
+        }
+
+        public void OpenFile(FileData file)
+        {
+            var appManager = AppManager.Instance;
+
+            switch (file.Type)
+            {
+                case FileData.FileType.Book:
+                    string text = appManager.LoadFile(file.Path);
+
+                    _bookViewer.DisplayFile(file);
+
+                    OpenPanel(_bookViewer.gameObject);
+                    break;
+                case FileData.FileType.UserFile:
+                    _fileEditor.OpenFile(file);
+
+                    OpenPanel(_fileEditor.gameObject);
+                    break;
+            }
+        }
+
+        public void EditFile(FileData file)
+        {
+            OpenPanel(_fileEditor.gameObject);
+
+            _fileEditor.OpenFile(file);
+        }
+
+        public void SaveFile()
+        {
+            _fileEditor.SaveFile();
+
+            OpenPanel(_mainMenu);
+        }
+
+        public void RemoveFile(FileData file)
+        {
+            AppManager.Instance.RemoveFile(file);
+
+            UpdateFilesListUI();
+        }
     }
 }

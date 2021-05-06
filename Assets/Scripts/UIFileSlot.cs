@@ -4,28 +4,31 @@ using UnityEngine.Events;
 using TMPro;
 using NextMind.NeuroTags;
 
-public class UIFileSlot : MonoBehaviour
+namespace EBookReader
 {
-    [SerializeField] private TMP_Text _titleText;
-
-    [SerializeField] private Image _coverImage;
-
-    [SerializeField] private Button _openButton;
-
-    public void Init(Sprite coverSprite, string title, UnityAction open)
+    public class UIFileSlot : MonoBehaviour
     {
-        _titleText.text = title;
+        [SerializeField] private TMP_Text _titleText;
 
-        _coverImage.sprite = coverSprite;
+        [SerializeField] private Image _coverImage;
 
-        _openButton.onClick.RemoveAllListeners();
-        _openButton.onClick.AddListener(open);
+        [SerializeField] private Button _openButton;
 
-        var neuroTag = _openButton.GetComponentInChildren<NeuroTag>();
+        public void Init(Sprite coverSprite, string title, UnityAction open)
+        {
+            _titleText.text = title;
 
-        neuroTag.onTriggered.RemoveAllListeners();
-        neuroTag.onTriggered.AddListener(open);
+            _coverImage.sprite = coverSprite;
 
-        gameObject.SetActive(true);
+            _openButton.onClick.RemoveAllListeners();
+            _openButton.onClick.AddListener(open);
+
+            var neuroTag = _openButton.GetComponentInChildren<NeuroTag>();
+
+            neuroTag.onTriggered.RemoveAllListeners();
+            neuroTag.onTriggered.AddListener(open);
+
+            gameObject.SetActive(true);
+        }
     }
 }

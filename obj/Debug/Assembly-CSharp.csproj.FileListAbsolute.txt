@@ -283,3 +283,4 @@ D:\Projects\Work\NextMind\Unity\NextMindEbookReader\obj\Debug\Assembly-CSharp.cs
 D:\Projects\Work\NextMind\Unity\NextMindEbookReader\obj\Debug\Assembly-CSharp.csproj.CopyComplete
 D:\Projects\Work\NextMind\Unity\NextMindEbookReader\obj\Debug\Assembly-CSharp.dll
 D:\Projects\Work\NextMind\Unity\NextMindEbookReader\obj\Debug\Assembly-CSharp.pdb
+D:\Projects\Work\NextMind\Unity\NextMindEbookReader\Temp\bin\Debug\WearHFPlugin.dll

@@ -1,46 +1,47 @@
-﻿using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.Events;
 
-public class UIExpandButton : MonoBehaviour
+namespace EBookReader
 {
-    [SerializeField] private GameObject _expandPanel;
-
-    [SerializeField] private RectTransform _symbolButtonsParent;
-
-    public bool IsActive { get; private set; }
-
-    public UISymbolButton[] SymbolButtons { get; private set; }
-
-    public delegate void OnTriggered(UIExpandButton button);
-    public OnTriggered onExpanded;
-    public OnTriggered onClosed;
-
-    private void Awake()
+    public class UIExpandButton : MonoBehaviour
     {
-        Close();
+        [SerializeField] private GameObject _expandPanel;
 
-        SymbolButtons = _symbolButtonsParent.GetComponentsInChildren<UISymbolButton>();
-    }
+        [SerializeField] private RectTransform _symbolButtonsParent;
 
-    public void Expand()
-    {
-        IsActive = true;
+        public bool IsActive { get; private set; }
 
-        GetComponent<Image>().enabled = false;
-        _expandPanel.SetActive(true);
+        public UISymbolButton[] SymbolButtons { get; private set; }
 
-        onExpanded?.Invoke(this);
-    }
+        public delegate void OnTriggered(UIExpandButton button);
+        public OnTriggered onExpanded;
+        public OnTriggered onClosed;
 
-    public void Close()
-    {
-        IsActive = false;
+        private void Awake()
+        {
+            Close();
 
-        GetComponent<Image>().enabled = true;
-        _expandPanel.SetActive(false);
+            SymbolButtons = _symbolButtonsParent.GetComponentsInChildren<UISymbolButton>();
+        }
 
-        onClosed?.Invoke(this);
+        public void Expand()
+        {
+            IsActive = true;
+
+            GetComponent<Image>().enabled = false;
+            _expandPanel.SetActive(true);
+
+            onExpanded?.Invoke(this);
+        }
+
+        public void Close()
+        {
+            IsActive = false;
+
+            GetComponent<Image>().enabled = true;
+            _expandPanel.SetActive(false);
+
+            onClosed?.Invoke(this);
+        }
     }
 }

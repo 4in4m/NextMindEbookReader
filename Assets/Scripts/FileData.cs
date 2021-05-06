@@ -1,20 +1,23 @@
 ﻿using System;
 
-[Serializable]
-public class FileData
+namespace EBookReader
 {
-    public enum FileType { Book, UserFile }
-
-    public string Name;
-    public string Path;
-    public string ImagePath;
-    public FileType Type;
-
-    public FileData(string name, string path, string imagePath, FileType type)
+    [Serializable]
+    public class FileData
     {
-        Name = name;
-        Path = path;
-        ImagePath = imagePath;
-        Type = type;
+        public enum FileType { Book, UserFile }
+
+        public string Name;
+        public string Path;
+        public string ImagePath;
+        public FileType Type;
+
+        public FileData(string name, string path, string imagePath, FileType type)
+        {
+            Name = name;
+            Path = path;
+            ImagePath = imagePath;
+            Type = type;
+        }
     }
 }
