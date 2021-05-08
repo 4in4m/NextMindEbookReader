@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using NextMind.NeuroTags;
@@ -7,6 +8,8 @@ namespace EBookReader
 {
     public class UIBookViewer : MonoBehaviour
     {
+        [SerializeField] private SpeechController _speechController;
+
         [SerializeField] private UIColorSwitcher _colorSwitcher;
 
         [SerializeField] private TMP_Text _contentText;
@@ -34,6 +37,8 @@ namespace EBookReader
         private FileData _currentFile;
         private string _currentText;
         private int _curCharIndex;
+
+        private List<int> _leftCharsIndexes = new List<int>();
 
         private void Awake()
         {
@@ -64,41 +69,50 @@ namespace EBookReader
 
             _colorModeButton.onClick.AddListener(() => _colorSwitcher.SwitchColor());
             _colorModeButton.GetComponentInChildren<NeuroTag>().onTriggered.AddListener(() => _colorSwitcher.SwitchColor());
+
+            _speakButton.onClick.AddListener(() => SpeakCurrentPage());
+            _speakButton.GetComponentInChildren<NeuroTag>().onTriggered.AddListener(() => SpeakCurrentPage());
         }
 
-        public void NextPage()
+        private void NextPage()
         {
-            if (_contentText.pageToDisplay >= _contentText.textInfo.pageCount)
+            _speechController.StopSpeaking();
+
+            _leftCharsIndexes.Add(_curCharIndex);
+            _curCharIndex += _contentText.firstOverflowCharacterIndex;
+
+            string newText = _currentText.Substring(_curCharIndex, 16383);
+
+            _contentText.text = newText;
+            _contentText.ForceMeshUpdate();
+        }
+
+        private void PrevPage()
+        {
+            _speechController.StopSpeaking();
+
+            if (_leftCharsIndexes.Count > 0)
             {
-                _curCharIndex += 16383;
+                _curCharIndex = _leftCharsIndexes[_leftCharsIndexes.Count - 1];
 
-                string newText = _currentText.Substring(_curCharIndex, 16383);
-
-                _contentText.text = newText;
-                _contentText.pageToDisplay = 1;
+                _leftCharsIndexes.Remove(_curCharIndex);
             }
             else
             {
-                _contentText.pageToDisplay++;
+                _curCharIndex = 0;
             }
+
+            string newText = _currentText.Substring(_curCharIndex, 16383);
+
+            _contentText.text = newText;
+            _contentText.ForceMeshUpdate();
         }
 
-        public void PrevPage()
+        private void SpeakCurrentPage()
         {
-            if (_contentText.pageToDisplay > 1)
-            {
-                _contentText.pageToDisplay--;
-            }
-            else if (_curCharIndex >= 16383)
-            {
-                _curCharIndex -= 16383;
+            string text = _currentText.Substring(_curCharIndex, _contentText.firstOverflowCharacterIndex);
 
-                string newText = _currentText.Substring(_curCharIndex, 16383);
-
-                _contentText.text = newText;
-                _contentText.ForceMeshUpdate();
-                _contentText.pageToDisplay = _contentText.textInfo.pageCount;
-            }
+            _speechController.SpeakText(text);
         }
 
         public void DisplayFile(FileData file)

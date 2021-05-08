@@ -5,6 +5,7 @@
 using System;
 using System.Reflection;
 using System.Reflection.Emit;
+using UnityNativeTool;
 
 namespace UnityNativeTool.Internal
 {

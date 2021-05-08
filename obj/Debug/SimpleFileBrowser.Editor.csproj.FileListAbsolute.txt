@@ -273,4 +273,3 @@ D:\Projects\Work\NextMind\Unity\NextMindEbookReader\obj\Debug\SimpleFileBrowser.
 D:\Projects\Work\NextMind\Unity\NextMindEbookReader\obj\Debug\SimpleFileBrowser.Editor.csproj.CopyComplete
 D:\Projects\Work\NextMind\Unity\NextMindEbookReader\obj\Debug\SimpleFileBrowser.Editor.dll
 D:\Projects\Work\NextMind\Unity\NextMindEbookReader\obj\Debug\SimpleFileBrowser.Editor.pdb
-D:\Projects\Work\NextMind\Unity\NextMindEbookReader\Temp\bin\Debug\WearHFPlugin.dll

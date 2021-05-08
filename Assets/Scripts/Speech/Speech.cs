@@ -257,5 +257,10 @@ namespace UnityLibrary
             };
         }
 
+        public void Stop()
+        {
+            messages.Clear();
+        }
+
     } // class
 } // namespace
