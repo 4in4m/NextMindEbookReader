@@ -113,10 +113,9 @@ namespace EBookReader
 
                             SaveFile(newBook, finalText);
 
+                            FileBrowserHelpers.DeleteFile(file.Path);
                             break;
                     }
-
-                    FileBrowserHelpers.DeleteFile(file.Path);
                 }
                 else
                 {
