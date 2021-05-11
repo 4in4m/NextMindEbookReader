@@ -21,5 +21,10 @@ namespace EBookReader
             firstSymbolText.text = firstSymbol.ToString();
             secondSymbolText.text = secondSymbol.ToString();
         }
+
+        public void ShowOnlySymbol(bool enable)
+        {
+            firstSymbolText.enabled = !enable;
+        }
     }
 }

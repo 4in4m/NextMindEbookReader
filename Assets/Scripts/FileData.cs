@@ -12,6 +12,8 @@ namespace EBookReader
         public string ImagePath;
         public FileType Type;
 
+        public int CurCharIndex;
+
         public FileData(string name, string path, string imagePath, FileType type)
         {
             Name = name;

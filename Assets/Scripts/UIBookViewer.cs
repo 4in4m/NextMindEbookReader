@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
@@ -13,6 +14,8 @@ namespace EBookReader
         [SerializeField] private UIColorSwitcher _colorSwitcher;
 
         [SerializeField] private TMP_Text _contentText;
+
+        [SerializeField] private GameObject _loadingPanel;
 
         [SerializeField] private Button _nextPageButton;
 
@@ -74,6 +77,40 @@ namespace EBookReader
             _speakButton.GetComponentInChildren<NeuroTag>().onTriggered.AddListener(() => SpeakCurrentPage());
         }
 
+        private void OnEnable()
+        {
+            StartCoroutine(SyncFile());
+        }
+
+        private void OnDisable()
+        {
+            StopAllCoroutines();
+        }
+
+        private IEnumerator SyncFile()
+        {
+            _curCharIndex = 0;
+            _leftCharsIndexes.Clear();
+
+            _contentText.text = _currentText.Substring(_curCharIndex, 16383);
+            _contentText.ForceMeshUpdate();
+
+            while (_curCharIndex < _currentFile.CurCharIndex) 
+            {
+                _leftCharsIndexes.Add(_curCharIndex);
+                _curCharIndex += _contentText.firstOverflowCharacterIndex;
+
+                string newText = _currentText.Substring(_curCharIndex, 16383);
+
+                _contentText.text = newText;
+                _contentText.ForceMeshUpdate();
+
+                yield return null;
+            }
+
+            _loadingPanel.SetActive(false);
+        }
+
         private void NextPage()
         {
             _speechController.StopSpeaking();
@@ -85,6 +122,9 @@ namespace EBookReader
 
             _contentText.text = newText;
             _contentText.ForceMeshUpdate();
+
+            _currentFile.CurCharIndex = _curCharIndex;
+            AppManager.Instance.SaveFilesData();
         }
 
         private void PrevPage()
@@ -106,6 +146,9 @@ namespace EBookReader
 
             _contentText.text = newText;
             _contentText.ForceMeshUpdate();
+
+            _currentFile.CurCharIndex = _curCharIndex;
+            AppManager.Instance.SaveFilesData();
         }
 
         private void SpeakCurrentPage()
@@ -115,20 +158,15 @@ namespace EBookReader
             _speechController.SpeakText(text);
         }
 
-        public void DisplayFile(FileData file)
+        public void DisplayBook(FileData file)
         {
+            _loadingPanel.SetActive(true);
+
             _currentFile = file;
 
             string text = AppManager.Instance.LoadFile(_currentFile.Path);
 
             _currentText = text;
-
-            string newText = text.Substring(0, 16383);
-
-            _contentText.text = newText;
-            _contentText.ForceMeshUpdate();
-
-            Debug.Log(_contentText.firstOverflowCharacterIndex);
         }
     }
 }

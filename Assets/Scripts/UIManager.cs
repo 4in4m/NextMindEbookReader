@@ -2,11 +2,13 @@
 using UnityEngine.UI;
 using UnityEngine.Events;
 using NextMind.NeuroTags;
+using UnityEngine.SceneManagement;
 
 namespace EBookReader
 {
     public class UIManager : MonoBehaviour
     {
+        private const int FILES_PER_PAGE = 4;
 
         [SerializeField] private GameObject _mainMenu;
 
@@ -18,11 +20,13 @@ namespace EBookReader
 
         [SerializeField] private Button _newFileButton;
 
-        [SerializeField] private Button _importButton;
+        [SerializeField] private Button _addButton;
 
         [SerializeField] private Button _extraButton;
 
         [SerializeField] private GameObject _extraPanel;
+
+        [SerializeField] private Button _calibrationButton;
 
         [SerializeField] private Button _pageUpButton;
 
@@ -31,6 +35,8 @@ namespace EBookReader
         private UIFileSlot[] _filesSlots;
 
         private GameObject _openedPanel;
+
+        private int _currentFileIndex;
 
         void Start()
         {
@@ -42,11 +48,14 @@ namespace EBookReader
 
             OpenPanel(_mainMenu);
 
-            _importButton.onClick.AddListener(() => OpenImportPanel());
-            _importButton.GetComponentInChildren<NeuroTag>().onTriggered.AddListener(() => OpenImportPanel());
+            _addButton.onClick.AddListener(() => OpenImportPanel());
+            //_addButton.GetComponentInChildren<NeuroTag>().onTriggered.AddListener(() => OpenImportPanel());
 
             _extraButton.onClick.AddListener(() => _extraPanel.SetActive(!_extraPanel.activeSelf));
             _extraButton.GetComponentInChildren<NeuroTag>().onTriggered.AddListener(() => _extraPanel.SetActive(!_extraPanel.activeSelf));
+
+            _calibrationButton.onClick.AddListener(() => StartCalibration());
+            _calibrationButton.GetComponentInChildren<NeuroTag>().onTriggered.AddListener(() => StartCalibration());
 
             UnityAction createNewFile = new UnityAction(() =>
             {
@@ -58,21 +67,93 @@ namespace EBookReader
             _newFileButton.onClick.AddListener(createNewFile);
             _newFileButton.GetComponentInChildren<NeuroTag>().onTriggered.AddListener(createNewFile);
 
-            _pageUpButton.onClick.AddListener(() => PageUp());
-            _pageUpButton.GetComponentInChildren<NeuroTag>().onTriggered.AddListener(() => PageUp());
+            _pageUpButton.onClick.AddListener(() => ShowPrevFiles());
+            _pageUpButton.GetComponentInChildren<NeuroTag>().onTriggered.AddListener(() => ShowPrevFiles());
 
-            _pageDownButton.onClick.AddListener(() => PageDown());
-            _pageDownButton.GetComponentInChildren<NeuroTag>().onTriggered.AddListener(() => PageDown());
+            _pageDownButton.onClick.AddListener(() => ShowNextFiles());
+            _pageDownButton.GetComponentInChildren<NeuroTag>().onTriggered.AddListener(() => ShowNextFiles());
         }
 
-        private void PageUp()
+        private void StartCalibration()
         {
-            //
+            _extraPanel.SetActive(false);
+
+            SceneManager.LoadScene("MyCalibration", LoadSceneMode.Additive);
         }
 
-        private void PageDown()
+        private void EndCalibration()
         {
-            //
+            SceneManager.UnloadSceneAsync("MyCalibartion"); ;
+        }
+
+        private void ShowPrevFiles()
+        {
+            if (_currentFileIndex == 0)
+            {
+                return;
+            }
+
+            _currentFileIndex -= FILES_PER_PAGE;
+
+            if (_currentFileIndex < 0)
+            {
+                _currentFileIndex = 0;
+            }
+
+            UpdateFilesListUI();
+        }
+
+        private void ShowNextFiles()
+        {
+            if (AppManager.Instance.FilesData == null || AppManager.Instance.FilesData.Files == null)
+            {
+                return;
+            }
+
+            int fileIndex = _currentFileIndex + FILES_PER_PAGE;
+
+            if (fileIndex >= AppManager.Instance.FilesData.Files.Count)
+            {
+                return;
+            }
+
+            _currentFileIndex = fileIndex;
+
+            UpdateFilesListUI();
+        }
+
+        private void UpdateFilesListUI()
+        {
+            var appManager = AppManager.Instance;
+            int fileIndex = _currentFileIndex;
+
+            for (int i = 0; i < _filesSlots.Length; i++)
+            {
+                if (appManager.FilesData == null || fileIndex >= appManager.FilesData.Files.Count || appManager.FilesData.Files[fileIndex] == null || appManager.FilesData.Files[fileIndex].Path == string.Empty)
+                {
+                    _filesSlots[i].gameObject.SetActive(false);
+                    continue;
+                }
+
+                var file = appManager.FilesData.Files[fileIndex];
+                var slot = _filesSlots[i];
+
+                Sprite cover = null;
+
+                if (file.ImagePath != string.Empty)
+                {
+                    cover = appManager.LoadSprite(file.ImagePath);
+                }
+
+                UnityAction openFile = new UnityAction(() =>
+                {
+                    OpenFile(file);
+                });
+
+                slot.Init(cover, file.Name, openFile);
+
+                fileIndex++;
+            }
         }
 
         public void OpenImportPanel()
@@ -97,37 +178,6 @@ namespace EBookReader
             OpenPanel(_mainMenu);
         }
 
-        private void UpdateFilesListUI()
-        {
-            var appManager = AppManager.Instance;
-
-            for (int i = 0; i < _filesSlots.Length; i++)
-            {
-                if (appManager.FilesData == null || i >= appManager.FilesData.Files.Count || appManager.FilesData.Files[i] == null || appManager.FilesData.Files[i].Path == string.Empty)
-                {
-                    _filesSlots[i].gameObject.SetActive(false);
-                    continue;
-                }
-
-                var file = appManager.FilesData.Files[i];
-                var slot = _filesSlots[i];
-
-                Sprite cover = null;
-
-                if (file.ImagePath != string.Empty)
-                {
-                    cover = appManager.LoadSprite(appManager.FilesData.Files[i].ImagePath);
-                }
-
-                UnityAction openFile = new UnityAction(() =>
-                {
-                    OpenFile(file);
-                });
-
-                slot.Init(cover, appManager.FilesData.Files[i].Name, openFile);
-            }
-        }
-
         public void OpenFile(FileData file)
         {
             var appManager = AppManager.Instance;
@@ -137,7 +187,7 @@ namespace EBookReader
                 case FileData.FileType.Book:
                     string text = appManager.LoadFile(file.Path);
 
-                    _bookViewer.DisplayFile(file);
+                    _bookViewer.DisplayBook(file);
 
                     OpenPanel(_bookViewer.gameObject);
                     break;
@@ -154,20 +204,6 @@ namespace EBookReader
             OpenPanel(_fileEditor.gameObject);
 
             _fileEditor.OpenFile(file);
-        }
-
-        public void SaveFile()
-        {
-            _fileEditor.SaveFile();
-
-            OpenPanel(_mainMenu);
-        }
-
-        public void RemoveFile(FileData file)
-        {
-            AppManager.Instance.RemoveFile(file);
-
-            UpdateFilesListUI();
         }
     }
 }

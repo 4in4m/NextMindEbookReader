@@ -22,17 +22,18 @@ namespace EBookReader
 
         private List<List<ElementsGroup>> _colorGroups = new List<List<ElementsGroup>>();
 
-        private int _curIndex;
+        private int _curIndex = 0;
 
         private void Awake()
         {
-            _curIndex = PlayerPrefs.GetInt("BookViewer_ColorMode");
-
-            _colorGroups.Add(_firstGroup);
             _colorGroups.Add(_secondGroup);
+            _colorGroups.Add(_firstGroup);
 
-            _curIndex--;
-            SwitchColor();
+            if (PlayerPrefs.HasKey("BookViewer_ColorMode"))
+            {
+                _curIndex = PlayerPrefs.GetInt("BookViewer_ColorMode") - 1;
+                SwitchColor();
+            }
         }
 
         public void SwitchColor()

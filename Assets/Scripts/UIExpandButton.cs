@@ -24,6 +24,14 @@ namespace EBookReader
             SymbolButtons = _symbolButtonsParent.GetComponentsInChildren<UISymbolButton>();
         }
 
+        public void SetSymbolsMode(bool enable)
+        {
+            foreach (var button in SymbolButtons)
+            {
+                button.ShowOnlySymbol(true);
+            }
+        }
+
         public void Expand()
         {
             IsActive = true;

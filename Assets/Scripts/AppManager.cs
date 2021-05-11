@@ -5,6 +5,7 @@ using SimpleFileBrowser;
 using System.IO;
 using FB2Library;
 using System;
+using System.Threading.Tasks;
 
 namespace EBookReader
 {
@@ -16,7 +17,8 @@ namespace EBookReader
 
     public class AppManager : MonoBehaviour
     {
-        [SerializeField] private string _folderName = "/Files/";
+        [SerializeField] private string _sourceFolder = "/Import/";
+        [SerializeField] private string _targetFolder = "/Files/";
         [SerializeField] private FB2SampleConverter _fB2SampleConverter;
 
         private static AppManager _instance;
@@ -46,11 +48,81 @@ namespace EBookReader
 
             FileBrowser.Filter filter = new FileBrowser.Filter("fb2", ".fb2");
             FileBrowser.SetFilters(false, filter);
+
+            ImportFiles();
         }
 
         void Start()
         {
-            onFB2Loaded += ReadFB2FileAsync;
+            //onFB2Loaded += ReadFB2File;
+        }
+
+        private async void ImportFiles()
+        {
+            string path = Application.persistentDataPath + _sourceFolder;
+
+            try
+            {
+                if (!Directory.Exists(path))
+                {
+                    Directory.CreateDirectory(path);
+                }
+            }
+            catch (IOException ex)
+            {
+                Debug.Log(ex.Message);
+                return;
+            }
+
+            var files = FileBrowserHelpers.GetEntriesInDirectory(path);
+
+            foreach (var file in files)
+            {
+                if (!file.IsDirectory)
+                {
+                    switch (file.Extension)
+                    {
+                        case ".fb2":
+                            string fileName = FileBrowserHelpers.GetFilename(file.Path);
+                            string text = FileBrowserHelpers.ReadTextFromFile(file.Path);
+
+                            FB2File newFile = await new FB2Reader().ReadAsync(text);
+                            var lines = await _fB2SampleConverter.ConvertAsync(newFile);
+                            string finalText = _fB2SampleConverter.GetLinesAsText();
+
+                            byte[] imageData = _fB2SampleConverter.GetCoverImageData();
+
+                            string imagePath = Application.persistentDataPath + _targetFolder + fileName + ".jpg"; ;
+
+                            try
+                            {
+                                File.WriteAllBytes(imagePath, imageData);
+
+                                Debug.Log("Image is saved. Path: " + imagePath);
+                            }
+                            catch
+                            {
+                                Debug.LogError("Loading image is error!");
+                            }
+
+                            imagePath = imagePath.Replace("/", "\\");
+
+                            string filePath = (Application.persistentDataPath + _targetFolder + fileName).Replace("/", "\\");
+
+                            FileData newBook = new FileData(fileName, filePath, imagePath, FileData.FileType.Book);
+
+                            SaveFile(newBook, finalText);
+
+                            break;
+                    }
+
+                    FileBrowserHelpers.DeleteFile(file.Path);
+                }
+                else
+                {
+                    FileBrowserHelpers.DeleteDirectory(file.Path);
+                }
+            }
         }
 
         /// <summary>
@@ -61,61 +133,57 @@ namespace EBookReader
             StartCoroutine(ShowLoadDialogCoroutine());
         }
 
-        IEnumerator ShowLoadDialogCoroutine()
+        private IEnumerator ShowLoadDialogCoroutine()
         {
             // Show a load file dialog and wait for a response from user
             // Load file/folder: file, Initial path: default (Documents), Title: "Load File", submit button text: "Load"
             yield return FileBrowser.WaitForLoadDialog(FileBrowser.PickMode.Files, false, null, "Load Book", "Load");
 
-            onFB2Loaded?.Invoke();
-        }
-
-        private async void ReadFB2FileAsync()
-        {
-            // Dialog is closed
-            // Print whether a file is chosen (FileBrowser.Success)
-            // and the path to the selected file (FileBrowser.Result) (null, if FileBrowser.Success is false)
-            // If a file was chosen, read its bytes via FileBrowserHelpers
-            // Contrary to File.ReadAllBytes, this function works on Android 10+, as well
-
             if (FileBrowser.Success)
             {
                 foreach (string path in FileBrowser.Result)
                 {
-                    string fileName = FileBrowserHelpers.GetFilename(path);
-                    string text = FileBrowserHelpers.ReadTextFromFile(path);
-
-                    FB2File file = await new FB2Reader().ReadAsync(text);
-                    var lines = await _fB2SampleConverter.ConvertAsync(file);
-                    string finalText = _fB2SampleConverter.GetLinesAsText();
-
-                    byte[] imageData = _fB2SampleConverter.GetCoverImageData();
-
-                    string imagePath = Application.persistentDataPath + _folderName + fileName + ".jpg"; ;
-
-                    try
-                    {
-                        File.WriteAllBytes(imagePath, imageData);
-
-                        Debug.Log("Image is saved. Path: " + imagePath);
-                    }
-                    catch
-                    {
-                        Debug.LogError("Loading image is error!");
-                    }
-
-                    imagePath = imagePath.Replace("/", "\\");
-
-                    string filePath = (Application.persistentDataPath + _folderName + fileName).Replace("/", "\\");
-
-                    FileData newBook = new FileData(fileName, filePath, imagePath, FileData.FileType.Book);
-
-                    SaveFile(newBook, finalText);
+                    ReadFB2File(path);
                 }
             }
+
+            onFB2Loaded?.Invoke();
         }
 
-        private void SaveFilesData()
+        private async void ReadFB2File(string path)
+        {
+            string fileName = FileBrowserHelpers.GetFilename(path);
+            string text = FileBrowserHelpers.ReadTextFromFile(path);
+
+            FB2File file = await new FB2Reader().ReadAsync(text);
+            var lines = await _fB2SampleConverter.ConvertAsync(file);
+            string finalText = _fB2SampleConverter.GetLinesAsText();
+
+            byte[] imageData = _fB2SampleConverter.GetCoverImageData();
+
+            string imagePath = Application.persistentDataPath + _targetFolder + fileName + ".jpg"; ;
+
+            try
+            {
+                File.WriteAllBytes(imagePath, imageData);
+
+                Debug.Log("Image is saved. Path: " + imagePath);
+            }
+            catch
+            {
+                Debug.LogError("Loading image is error!");
+            }
+
+            imagePath = imagePath.Replace("/", "\\");
+
+            string filePath = (Application.persistentDataPath + _targetFolder + fileName).Replace("/", "\\");
+
+            FileData newBook = new FileData(fileName, filePath, imagePath, FileData.FileType.Book);
+
+            SaveFile(newBook, finalText);
+        }
+
+        public void SaveFilesData()
         {
             string json = JsonUtility.ToJson(FilesData);
             PlayerPrefs.SetString("Files", json);
@@ -127,6 +195,11 @@ namespace EBookReader
             {
                 FilesData = JsonUtility.FromJson<FilesData>(PlayerPrefs.GetString("Files"));
             }
+        }
+
+        public void GetFilesForImport()
+        {
+            //
         }
 
         public Sprite LoadSprite(string path)
@@ -186,7 +259,7 @@ namespace EBookReader
             if (file == null)
             {
                 string name = DateTime.Now.ToShortDateString() + "_" + DateTime.Now.ToLongTimeString().Replace(":", "_");
-                string path = Application.persistentDataPath + _folderName;
+                string path = Application.persistentDataPath + _targetFolder;
 
                 try
                 {
@@ -201,7 +274,7 @@ namespace EBookReader
                 }
 
                 path = path.Replace("/", "\\");
-                path += file.Name + ".txt";
+                path += name + ".txt";
 
                 file = new FileData(name, path, String.Empty, FileData.FileType.UserFile);
             }

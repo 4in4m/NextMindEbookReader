@@ -4,6 +4,7 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
 using NextMind.NeuroTags;
+using UnityEngine.Events;
 
 namespace EBookReader
 {
@@ -42,11 +43,17 @@ namespace EBookReader
                 btn.onClosed += DisplayControls;
             }
 
-            _saveButton.onClick.AddListener(() => SaveFile());
-            _saveButton.GetComponentInChildren<NeuroTag>().onTriggered.AddListener(() => SaveFile());
+            UnityAction saveFile = () =>
+            {
+                AppManager.Instance.SaveFile(_currentFile, _inputField.text);
+                uIManager.OpenMainMenu();
+            };
 
-            _closeButton.onClick.AddListener(() => uIManager.OpenFile(_currentFile));
-            _closeButton.GetComponentInChildren<NeuroTag>().onTriggered.AddListener(() => uIManager.OpenFile(_currentFile));
+            _saveButton.onClick.AddListener(saveFile);
+            _saveButton.GetComponentInChildren<NeuroTag>().onTriggered.AddListener(saveFile);
+
+            _closeButton.onClick.AddListener(() => uIManager.OpenMainMenu());
+            _closeButton.GetComponentInChildren<NeuroTag>().onTriggered.AddListener(() => uIManager.OpenMainMenu());
 
             _backspaceButton.onClick.AddListener(() => RemoveLastSymbol());
             _backspaceButton.GetComponentInChildren<NeuroTag>().onTriggered.AddListener(() => RemoveLastSymbol());
@@ -165,6 +172,11 @@ namespace EBookReader
         public void SwitchInputMode()
         {
             _firstSymbolInputMode = !_firstSymbolInputMode;
+
+            foreach (var btn in _expandButtons)
+            {
+                btn.SetSymbolsMode(!_firstSymbolInputMode);
+            }
         }
 
         public void OpenFile(FileData file)
@@ -179,11 +191,6 @@ namespace EBookReader
             }
 
             _currentFile = file;
-        }
-
-        public void SaveFile()
-        {
-            AppManager.Instance.SaveFile(_currentFile, _inputField.text);
         }
     }
 }
