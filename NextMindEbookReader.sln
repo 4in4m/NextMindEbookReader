@@ -11,8 +11,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NextMind.UnitySDK.Runtime",
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleFileBrowser.Editor", "SimpleFileBrowser.Editor.csproj", "{FCFDA62B-EF47-FDE1-1287-C85C3F6BEEF7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Assembly-CSharp-Editor", "Assembly-CSharp-Editor.csproj", "{D0D7D5DE-55FB-2823-1272-8B46A5BA3EE8}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,10 +37,6 @@ Global
 		{FCFDA62B-EF47-FDE1-1287-C85C3F6BEEF7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FCFDA62B-EF47-FDE1-1287-C85C3F6BEEF7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FCFDA62B-EF47-FDE1-1287-C85C3F6BEEF7}.Release|Any CPU.Build.0 = Release|Any CPU
-		{D0D7D5DE-55FB-2823-1272-8B46A5BA3EE8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D0D7D5DE-55FB-2823-1272-8B46A5BA3EE8}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D0D7D5DE-55FB-2823-1272-8B46A5BA3EE8}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D0D7D5DE-55FB-2823-1272-8B46A5BA3EE8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

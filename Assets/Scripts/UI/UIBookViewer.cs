@@ -9,8 +9,6 @@ namespace EBookReader
 {
     public class UIBookViewer : MonoBehaviour
     {
-        [SerializeField] private SpeechController _speechController;
-
         [SerializeField] private UIColorSwitcher _colorSwitcher;
 
         [SerializeField] private TMP_Text _contentText;
@@ -43,8 +41,12 @@ namespace EBookReader
 
         private List<int> _leftCharsIndexes = new List<int>();
 
+        private SpeechController _speechController;
+
         private void Awake()
         {
+            _speechController = gameObject.AddComponent<SpeechController>();
+
             _nextPageButton.onClick.AddListener(() => NextPage());
             _nextPageButton.GetComponentInChildren<NeuroTag>().onTriggered.AddListener(() => NextPage());
 
