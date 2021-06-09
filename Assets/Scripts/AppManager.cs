@@ -6,6 +6,8 @@ using System.IO;
 using FB2Library;
 using System;
 using System.Threading.Tasks;
+using UEPub;
+using AngleSharp;
 
 namespace EBookReader
 {
@@ -46,7 +48,7 @@ namespace EBookReader
 
             LoadFilesData();
 
-            FileBrowser.Filter filter = new FileBrowser.Filter("fb2", ".fb2");
+            FileBrowser.Filter filter = new FileBrowser.Filter("fb2", ".fb2", "epub", ".epub");
             FileBrowser.SetFilters(false, filter);
 
             ImportFiles();
@@ -78,21 +80,30 @@ namespace EBookReader
 
             foreach (var file in files)
             {
+                string fileName = string.Empty;
+                string filePath = string.Empty;
+                string imagePath = string.Empty;
+
+                string text = string.Empty;
+                string finalText = string.Empty;
+
+                FileData newBook = null;
+
                 if (!file.IsDirectory)
                 {
                     switch (file.Extension)
                     {
                         case ".fb2":
-                            string fileName = FileBrowserHelpers.GetFilename(file.Path);
-                            string text = FileBrowserHelpers.ReadTextFromFile(file.Path);
+                            fileName = FileBrowserHelpers.GetFilename(file.Path);
+                            text = FileBrowserHelpers.ReadTextFromFile(file.Path);
 
-                            FB2File newFile = await new FB2Reader().ReadAsync(text);
-                            var lines = await _fB2SampleConverter.ConvertAsync(newFile);
-                            string finalText = _fB2SampleConverter.GetLinesAsText();
+                            FB2File fb2File = await new FB2Reader().ReadAsync(text);
+                            var lines = await _fB2SampleConverter.ConvertAsync(fb2File);
+                            finalText = _fB2SampleConverter.GetLinesAsText();
 
                             byte[] imageData = _fB2SampleConverter.GetCoverImageData();
 
-                            string imagePath = Application.persistentDataPath + _targetFolder + fileName + ".jpg"; ;
+                            imagePath = Application.persistentDataPath + _targetFolder + fileName + ".jpg"; ;
 
                             try
                             {
@@ -107,9 +118,54 @@ namespace EBookReader
 
                             imagePath = imagePath.Replace("/", "\\");
 
-                            string filePath = (Application.persistentDataPath + _targetFolder + fileName).Replace("/", "\\");
+                            filePath = (Application.persistentDataPath + _targetFolder + fileName).Replace("/", "\\");
 
-                            FileData newBook = new FileData(fileName, filePath, imagePath, FileData.FileType.Book);
+                            newBook = new FileData(fileName, filePath, imagePath, FileData.FileType.Book);
+
+                            SaveFile(newBook, finalText);
+
+                            FileBrowserHelpers.DeleteFile(file.Path);
+                            break;
+                        case ".epub":
+                            var epubFile = new UEPubReader(file.Path);
+
+                            fileName = FileBrowserHelpers.GetFilename(file.Path);
+
+                            foreach (var chapter in epubFile.chapters)
+                            {
+                                text += chapter;
+                            }
+
+                            //Use the default configuration for AngleSharp
+                            var config = Configuration.Default;
+
+                            //Create a new context for evaluating webpages with the given config
+                            var context = BrowsingContext.New(config);
+
+                            var document = await context.OpenAsync(req => req.Content(text));
+
+                            finalText = document.DocumentElement.TextContent;
+
+                            //byte[] imageData = _fB2SampleConverter.GetCoverImageData();
+
+                            //string imagePath = Application.persistentDataPath + _targetFolder + fileName + ".jpg"; ;
+
+                            //try
+                            //{
+                            //    File.WriteAllBytes(imagePath, imageData);
+
+                            //    Debug.Log("Image is saved. Path: " + imagePath);
+                            //}
+                            //catch
+                            //{
+                            //    Debug.LogError("Loading image is error!");
+                            //}
+
+                            //imagePath = imagePath.Replace("/", "\\");
+
+                            filePath = (Application.persistentDataPath + _targetFolder + fileName).Replace("/", "\\");
+
+                            newBook = new FileData(fileName, filePath, imagePath, FileData.FileType.Book);
 
                             SaveFile(newBook, finalText);
 

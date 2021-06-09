@@ -327,6 +327,12 @@
     <Reference Include="NextMind">
       <HintPath>D:/Projects/Work/NextMind/Unity/NextMindEbookReader/Assets/NextMindSDK/Core/Runtime/Plugins/NextMind.dll</HintPath>
     </Reference>
+    <Reference Include="Ionic.Zip">
+      <HintPath>D:/Projects/Work/NextMind/Unity/NextMindEbookReader/Assets/Plugins/Ionic.Zip.dll</HintPath>
+    </Reference>
+    <Reference Include="AngleSharp">
+      <HintPath>D:/Projects/Work/NextMind/Unity/NextMindEbookReader/Assets/Plugins/netstandard2.0/AngleSharp.dll</HintPath>
+    </Reference>
     <Reference Include="Python.Runtime">
       <HintPath>D:/Projects/Work/NextMind/Unity/NextMindEbookReader/Library/PackageCache/com.unity.scripting.python@4.0.0-exp.5/Editor/Lib/x64/ReleaseWin/Python.Runtime.dll</HintPath>
     </Reference>

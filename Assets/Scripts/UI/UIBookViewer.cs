@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using NextMind.NeuroTags;
+using UnityEngine.Events;
 
 namespace EBookReader
 {
@@ -55,8 +56,14 @@ namespace EBookReader
 
             UIManager uIManager = transform.root.GetComponent<UIManager>();
 
-            _backButton.onClick.AddListener(() => uIManager.OpenMainMenu());
-            _backButton.GetComponentInChildren<NeuroTag>().onTriggered.AddListener(() => uIManager.OpenMainMenu());
+            UnityAction onBackAction = new UnityAction(() =>
+            {
+                _speechController.StopSpeaking();
+                uIManager.OpenMainMenu();
+            });
+
+            _backButton.onClick.AddListener(onBackAction);
+            _backButton.GetComponentInChildren<NeuroTag>().onTriggered.AddListener(onBackAction);
 
             _editButton.onClick.AddListener(() => uIManager.EditFile(_currentFile));
             _editButton.GetComponentInChildren<NeuroTag>().onTriggered.AddListener(() => uIManager.EditFile(_currentFile));

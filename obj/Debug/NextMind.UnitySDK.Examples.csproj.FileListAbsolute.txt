@@ -530,3 +530,4 @@ D:\Projects\Work\NextMind\Unity\NextMindEbookReader\Temp\bin\Debug\Boo.Lang.Comp
 D:\Projects\Work\NextMind\Unity\NextMindEbookReader\Temp\bin\Debug\Boo.Lang.PatternMatching.dll
 D:\Projects\Work\NextMind\Unity\NextMindEbookReader\Temp\bin\Debug\Boo.Lang.Parser.dll
 D:\Projects\Work\NextMind\Unity\NextMindEbookReader\Temp\bin\Debug\Boo.Lang.Useful.dll
+D:\Projects\Work\NextMind\Unity\NextMindEbookReader\Temp\bin\Debug\Ionic.Zip.dll

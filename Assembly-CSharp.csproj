@@ -110,9 +110,11 @@
     <Compile Include="Assets\FB2Library\IFB2Reader.cs" />
     <Compile Include="Assets\FB2Library\XmlLoadSettings.cs" />
     <Compile Include="Assets\Scripts\AppManager.cs" />
+    <Compile Include="Assets\Scripts\Epub\EbookRenderer.cs" />
+    <Compile Include="Assets\Scripts\Epub\UEPubMetadata.cs" />
+    <Compile Include="Assets\Scripts\Epub\UEPubReader.cs" />
     <Compile Include="Assets\Scripts\FB2SampleConverter.cs" />
     <Compile Include="Assets\Scripts\FileData.cs" />
-    <Compile Include="Assets\Scripts\HelloWorld.cs" />
     <Compile Include="Assets\Scripts\SceneUnloader.cs" />
     <Compile Include="Assets\Scripts\Speech\SpeechController.cs" />
     <Compile Include="Assets\Scripts\Speech\TestVoice.cs" />
@@ -367,6 +369,12 @@
     </Reference>
     <Reference Include="NextMind">
       <HintPath>D:/Projects/Work/NextMind/Unity/NextMindEbookReader/Assets/NextMindSDK/Core/Runtime/Plugins/NextMind.dll</HintPath>
+    </Reference>
+    <Reference Include="Ionic.Zip">
+      <HintPath>D:/Projects/Work/NextMind/Unity/NextMindEbookReader/Assets/Plugins/Ionic.Zip.dll</HintPath>
+    </Reference>
+    <Reference Include="AngleSharp">
+      <HintPath>D:/Projects/Work/NextMind/Unity/NextMindEbookReader/Assets/Plugins/netstandard2.0/AngleSharp.dll</HintPath>
     </Reference>
     <Reference Include="mscorlib">
       <HintPath>C:/Program Files/Unity/Hub/Editor/2019.4.24f1/Editor/Data/MonoBleedingEdge/lib/mono/4.7.1-api/mscorlib.dll</HintPath>
@@ -760,6 +768,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="Assembly-CSharp-firstpass.csproj">
+      <Project>{01ED8383-2399-D766-C337-8DA8EE630AA0}</Project>
+      <Name>Assembly-CSharp-firstpass</Name>
+    </ProjectReference>
     <ProjectReference Include="NextMind.UnitySDK.Runtime.csproj">
       <Project>{3776504B-339B-B72B-2BFB-24618384B9A4}</Project>
       <Name>NextMind.UnitySDK.Runtime</Name>
