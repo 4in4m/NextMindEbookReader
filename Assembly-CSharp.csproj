@@ -117,7 +117,6 @@
     <Compile Include="Assets\Scripts\FileData.cs" />
     <Compile Include="Assets\Scripts\SceneUnloader.cs" />
     <Compile Include="Assets\Scripts\Speech\SpeechController.cs" />
-    <Compile Include="Assets\Scripts\Speech\TestVoice.cs" />
     <Compile Include="Assets\Scripts\Speech\VoiceManager.cs" />
     <Compile Include="Assets\Scripts\UI\UIBookViewer.cs" />
     <Compile Include="Assets\Scripts\UI\UIColorSwitcher.cs" />
@@ -373,8 +372,14 @@
     <Reference Include="Ionic.Zip">
       <HintPath>D:/Projects/Work/NextMind/Unity/NextMindEbookReader/Assets/Plugins/Ionic.Zip.dll</HintPath>
     </Reference>
+    <Reference Include="VersOne.Epub">
+      <HintPath>D:/Projects/Work/NextMind/Unity/NextMindEbookReader/Assets/Plugins/netstandard1.3/VersOne.Epub.dll</HintPath>
+    </Reference>
     <Reference Include="AngleSharp">
       <HintPath>D:/Projects/Work/NextMind/Unity/NextMindEbookReader/Assets/Plugins/netstandard2.0/AngleSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="HtmlAgilityPack">
+      <HintPath>D:/Projects/Work/NextMind/Unity/NextMindEbookReader/Assets/Plugins/netstandard2.0/HtmlAgilityPack.dll</HintPath>
     </Reference>
     <Reference Include="mscorlib">
       <HintPath>C:/Program Files/Unity/Hub/Editor/2019.4.24f1/Editor/Data/MonoBleedingEdge/lib/mono/4.7.1-api/mscorlib.dll</HintPath>

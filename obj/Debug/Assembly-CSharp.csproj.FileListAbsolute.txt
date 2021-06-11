@@ -292,9 +292,9 @@ D:\Projects\Work\NextMind\Unity\NextMindEbookReader\Temp\bin\Debug\Boo.Lang.Pars
 D:\Projects\Work\NextMind\Unity\NextMindEbookReader\Temp\bin\Debug\Boo.Lang.Useful.dll
 D:\Projects\Work\NextMind\Unity\NextMindEbookReader\Temp\bin\Debug\Ionic.Zip.dll
 D:\Projects\Work\NextMind\Unity\NextMindEbookReader\Temp\bin\Debug\AngleSharp.dll
-D:\Projects\Work\NextMind\Unity\NextMindEbookReader\Temp\bin\Debug\System.Runtime.CompilerServices.Unsafe.dll
-D:\Projects\Work\NextMind\Unity\NextMindEbookReader\Temp\bin\Debug\System.Text.Encoding.CodePages.dll
 D:\Projects\Work\NextMind\Unity\NextMindEbookReader\Temp\bin\Debug\Assembly-CSharp-firstpass.pdb
 D:\Projects\Work\NextMind\Unity\NextMindEbookReader\Temp\bin\Debug\AngleSharp.xml
-D:\Projects\Work\NextMind\Unity\NextMindEbookReader\Temp\bin\Debug\System.Runtime.CompilerServices.Unsafe.xml
-D:\Projects\Work\NextMind\Unity\NextMindEbookReader\Temp\bin\Debug\System.Text.Encoding.CodePages.xml
+D:\Projects\Work\NextMind\Unity\NextMindEbookReader\Temp\bin\Debug\HtmlAgilityPack.dll
+D:\Projects\Work\NextMind\Unity\NextMindEbookReader\Temp\bin\Debug\VersOne.Epub.dll
+D:\Projects\Work\NextMind\Unity\NextMindEbookReader\Temp\bin\Debug\HtmlAgilityPack.pdb
+D:\Projects\Work\NextMind\Unity\NextMindEbookReader\Temp\bin\Debug\HtmlAgilityPack.xml

@@ -269,3 +269,9 @@ D:\Projects\Work\NextMind\Unity\NextMindEbookReader\Temp\bin\Debug\Boo.Lang.Patt
 D:\Projects\Work\NextMind\Unity\NextMindEbookReader\Temp\bin\Debug\Boo.Lang.Parser.dll
 D:\Projects\Work\NextMind\Unity\NextMindEbookReader\Temp\bin\Debug\Boo.Lang.Useful.dll
 D:\Projects\Work\NextMind\Unity\NextMindEbookReader\Temp\bin\Debug\Ionic.Zip.dll
+D:\Projects\Work\NextMind\Unity\NextMindEbookReader\Temp\bin\Debug\AngleSharp.dll
+D:\Projects\Work\NextMind\Unity\NextMindEbookReader\Temp\bin\Debug\HtmlAgilityPack.dll
+D:\Projects\Work\NextMind\Unity\NextMindEbookReader\Temp\bin\Debug\VersOne.Epub.dll
+D:\Projects\Work\NextMind\Unity\NextMindEbookReader\Temp\bin\Debug\AngleSharp.xml
+D:\Projects\Work\NextMind\Unity\NextMindEbookReader\Temp\bin\Debug\HtmlAgilityPack.pdb
+D:\Projects\Work\NextMind\Unity\NextMindEbookReader\Temp\bin\Debug\HtmlAgilityPack.xml

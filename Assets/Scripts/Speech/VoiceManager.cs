@@ -165,10 +165,13 @@ public class VoiceManager : MonoBehaviour
         Uni_Voice_Close();
     }
 
-    void OnApplicationQuit()
-    {
-        Uni_Voice_Close();
-    }
+    //void OnApplicationQuit()
+    //{
+    //    if (VoiceInit != 1)
+    //    {
+    //        Uni_Voice_Close();
+    //    }
+    //}
 }
 // **************************************************************************
 //               Unity Text To Speech V2 ZJP. Voice Manager

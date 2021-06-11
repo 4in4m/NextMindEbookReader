@@ -1,13 +1,16 @@
-﻿using System.Collections;
+﻿using System;
+using System.Linq;
+using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
-using SimpleFileBrowser;
+using System.Text;
 using System.IO;
+
+using UnityEngine;
+
+using SimpleFileBrowser;
 using FB2Library;
-using System;
-using System.Threading.Tasks;
-using UEPub;
-using AngleSharp;
+using VersOne.Epub;
+using HtmlAgilityPack;
 
 namespace EBookReader
 {
@@ -86,7 +89,7 @@ namespace EBookReader
 
                 string text = string.Empty;
                 string finalText = string.Empty;
-
+                byte[] imageData = null;
                 FileData newBook = null;
 
                 if (!file.IsDirectory)
@@ -101,22 +104,25 @@ namespace EBookReader
                             var lines = await _fB2SampleConverter.ConvertAsync(fb2File);
                             finalText = _fB2SampleConverter.GetLinesAsText();
 
-                            byte[] imageData = _fB2SampleConverter.GetCoverImageData();
+                            imageData = _fB2SampleConverter.GetCoverImageData();
 
-                            imagePath = Application.persistentDataPath + _targetFolder + fileName + ".jpg"; ;
-
-                            try
+                            if (imageData != null)
                             {
-                                File.WriteAllBytes(imagePath, imageData);
+                                imagePath = Application.persistentDataPath + _targetFolder + fileName + ".jpg"; ;
 
-                                Debug.Log("Image is saved. Path: " + imagePath);
-                            }
-                            catch
-                            {
-                                Debug.LogError("Loading image is error!");
-                            }
+                                try
+                                {
+                                    File.WriteAllBytes(imagePath, imageData);
 
-                            imagePath = imagePath.Replace("/", "\\");
+                                    Debug.Log("Image is saved. Path: " + imagePath);
+                                }
+                                catch
+                                {
+                                    Debug.LogError("Loading image is error!");
+                                }
+
+                                imagePath = imagePath.Replace("/", "\\");
+                            }
 
                             filePath = (Application.persistentDataPath + _targetFolder + fileName).Replace("/", "\\");
 
@@ -127,41 +133,57 @@ namespace EBookReader
                             FileBrowserHelpers.DeleteFile(file.Path);
                             break;
                         case ".epub":
-                            var epubFile = new UEPubReader(file.Path);
+                            //fileName = FileBrowserHelpers.GetFilename(file.Path);
 
-                            fileName = FileBrowserHelpers.GetFilename(file.Path);
+                            EpubBook epubFile = EpubReader.ReadBook(file.Path);
 
-                            foreach (var chapter in epubFile.chapters)
+                            fileName = epubFile.Title + " (" + epubFile.Author + ")";
+
+                            foreach (EpubTextContentFile textContentFile in epubFile.ReadingOrder)
                             {
-                                text += chapter;
+                                HtmlDocument htmlDocument = new HtmlDocument();
+                                htmlDocument.LoadHtml(textContentFile.Content);
+
+                                StringBuilder sb = new StringBuilder();
+                                foreach (HtmlNode node in htmlDocument.DocumentNode.SelectNodes("//text()"))
+                                {
+                                    sb.AppendLine(node.InnerText.Replace("\n", "").Replace("\r", ""));
+                                }
+
+                                finalText += sb.ToString();
                             }
 
-                            //Use the default configuration for AngleSharp
-                            var config = Configuration.Default;
+                            imageData = epubFile.CoverImage;
 
-                            //Create a new context for evaluating webpages with the given config
-                            var context = BrowsingContext.New(config);
+                            var imageName = string.Empty;
 
-                            var document = await context.OpenAsync(req => req.Content(text));
+                            if (imageData == null)
+                            {
+                                imageData = epubFile.Content.Images.FirstOrDefault().Value.Content;
+                                imageName = epubFile.Content.Images.FirstOrDefault().Key;
+                            }
+                            else
+                            {
+                                imageName = epubFile.Content.Cover.FileName;
+                            }
 
-                            finalText = document.DocumentElement.TextContent;
+                            if (imageData != null)
+                            {
+                                imagePath = Application.persistentDataPath + _targetFolder + imageName;
 
-                            //byte[] imageData = _fB2SampleConverter.GetCoverImageData();
+                                try
+                                {
+                                    File.WriteAllBytes(imagePath, imageData);
 
-                            //string imagePath = Application.persistentDataPath + _targetFolder + fileName + ".jpg"; ;
+                                    Debug.Log("Image is saved. Path: " + imagePath);
+                                }
+                                catch
+                                {
+                                    Debug.LogError("Loading image is error!");
+                                }
 
-                            //try
-                            //{
-                            //    File.WriteAllBytes(imagePath, imageData);
-
-                            //    Debug.Log("Image is saved. Path: " + imagePath);
-                            //}
-                            //catch
-                            //{
-                            //    Debug.LogError("Loading image is error!");
-                            //}
-
-                            //imagePath = imagePath.Replace("/", "\\");
+                                imagePath = imagePath.Replace("/", "\\");
+                            }
 
                             filePath = (Application.persistentDataPath + _targetFolder + fileName).Replace("/", "\\");
 

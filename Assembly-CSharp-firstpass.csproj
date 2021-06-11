@@ -63,6 +63,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Plugins\Zip.cs" />
+    <None Include="Assets\Plugins\netstandard2.0\HtmlAgilityPack.xml" />
     <None Include="Assets\Plugins\netstandard2.0\AngleSharp.xml" />
     <Reference Include="UnityEngine">
       <HintPath>C:/Program Files/Unity/Hub/Editor/2019.4.24f1/Editor/Data/Managed/UnityEngine/UnityEngine.dll</HintPath>
@@ -253,8 +254,14 @@
     <Reference Include="Ionic.Zip">
       <HintPath>D:/Projects/Work/NextMind/Unity/NextMindEbookReader/Assets/Plugins/Ionic.Zip.dll</HintPath>
     </Reference>
+    <Reference Include="VersOne.Epub">
+      <HintPath>D:/Projects/Work/NextMind/Unity/NextMindEbookReader/Assets/Plugins/netstandard1.3/VersOne.Epub.dll</HintPath>
+    </Reference>
     <Reference Include="AngleSharp">
       <HintPath>D:/Projects/Work/NextMind/Unity/NextMindEbookReader/Assets/Plugins/netstandard2.0/AngleSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="HtmlAgilityPack">
+      <HintPath>D:/Projects/Work/NextMind/Unity/NextMindEbookReader/Assets/Plugins/netstandard2.0/HtmlAgilityPack.dll</HintPath>
     </Reference>
     <Reference Include="mscorlib">
       <HintPath>C:/Program Files/Unity/Hub/Editor/2019.4.24f1/Editor/Data/MonoBleedingEdge/lib/mono/4.7.1-api/mscorlib.dll</HintPath>

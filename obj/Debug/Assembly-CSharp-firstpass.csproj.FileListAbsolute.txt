@@ -291,3 +291,9 @@ D:\Projects\Work\NextMind\Unity\NextMindEbookReader\obj\Debug\Assembly-CSharp-fi
 D:\Projects\Work\NextMind\Unity\NextMindEbookReader\obj\Debug\Assembly-CSharp-firstpass.csproj.CopyComplete
 D:\Projects\Work\NextMind\Unity\NextMindEbookReader\obj\Debug\Assembly-CSharp-firstpass.dll
 D:\Projects\Work\NextMind\Unity\NextMindEbookReader\obj\Debug\Assembly-CSharp-firstpass.pdb
+D:\Projects\Work\NextMind\Unity\NextMindEbookReader\Temp\bin\Debug\AngleSharp.dll
+D:\Projects\Work\NextMind\Unity\NextMindEbookReader\Temp\bin\Debug\HtmlAgilityPack.dll
+D:\Projects\Work\NextMind\Unity\NextMindEbookReader\Temp\bin\Debug\VersOne.Epub.dll
+D:\Projects\Work\NextMind\Unity\NextMindEbookReader\Temp\bin\Debug\AngleSharp.xml
+D:\Projects\Work\NextMind\Unity\NextMindEbookReader\Temp\bin\Debug\HtmlAgilityPack.pdb
+D:\Projects\Work\NextMind\Unity\NextMindEbookReader\Temp\bin\Debug\HtmlAgilityPack.xml

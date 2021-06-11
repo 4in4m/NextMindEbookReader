@@ -274,3 +274,9 @@ D:\Projects\Work\NextMind\Unity\NextMindEbookReader\obj\Debug\SimpleFileBrowser.
 D:\Projects\Work\NextMind\Unity\NextMindEbookReader\obj\Debug\SimpleFileBrowser.Editor.dll
 D:\Projects\Work\NextMind\Unity\NextMindEbookReader\obj\Debug\SimpleFileBrowser.Editor.pdb
 D:\Projects\Work\NextMind\Unity\NextMindEbookReader\Temp\bin\Debug\Ionic.Zip.dll
+D:\Projects\Work\NextMind\Unity\NextMindEbookReader\Temp\bin\Debug\AngleSharp.dll
+D:\Projects\Work\NextMind\Unity\NextMindEbookReader\Temp\bin\Debug\HtmlAgilityPack.dll
+D:\Projects\Work\NextMind\Unity\NextMindEbookReader\Temp\bin\Debug\VersOne.Epub.dll
+D:\Projects\Work\NextMind\Unity\NextMindEbookReader\Temp\bin\Debug\AngleSharp.xml
+D:\Projects\Work\NextMind\Unity\NextMindEbookReader\Temp\bin\Debug\HtmlAgilityPack.pdb
+D:\Projects\Work\NextMind\Unity\NextMindEbookReader\Temp\bin\Debug\HtmlAgilityPack.xml
