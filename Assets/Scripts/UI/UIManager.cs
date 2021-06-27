@@ -3,6 +3,7 @@ using UnityEngine.UI;
 using UnityEngine.Events;
 using NextMind.NeuroTags;
 using UnityEngine.SceneManagement;
+using System.Collections;
 
 namespace EBookReader
 {
@@ -140,9 +141,9 @@ namespace EBookReader
 
                 Sprite cover = null;
 
-                if (file.ImagePath != string.Empty)
+                if (file.CoverImagePath != string.Empty)
                 {
-                    cover = appManager.LoadSprite(file.ImagePath);
+                    cover = appManager.LoadSprite(file.CoverImagePath);
                 }
 
                 UnityAction openFile = new UnityAction(() =>
@@ -187,20 +188,30 @@ namespace EBookReader
                 case FileData.FileType.Book:
                     string text = appManager.LoadFile(file.Path);
 
-                    _bookViewer.DisplayBook(file);
-
                     OpenPanel(_bookViewer.gameObject);
+
+                    StartCoroutine(_bookViewer.DisplayBook(file));
                     break;
                 case FileData.FileType.UserFile:
-                    _fileEditor.OpenFile(file);
-
                     OpenPanel(_fileEditor.gameObject);
+
+                    _fileEditor.OpenFile(file);
+                    break;
+                case FileData.FileType.PdfFile:
+                    OpenPanel(_bookViewer.gameObject);
+
+                    StartCoroutine(_bookViewer.DisplayBook(file));
                     break;
             }
         }
 
         public void EditFile(FileData file)
         {
+            if (file.Type == FileData.FileType.PdfFile)
+            {
+                return;
+            }
+
             OpenPanel(_fileEditor.gameObject);
 
             _fileEditor.OpenFile(file);

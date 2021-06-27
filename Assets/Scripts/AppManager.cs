@@ -57,11 +57,6 @@ namespace EBookReader
             ImportFiles();
         }
 
-        void Start()
-        {
-            //onFB2Loaded += ReadFB2File;
-        }
-
         private async void ImportFiles()
         {
             string path = Application.persistentDataPath + _sourceFolder;
@@ -133,8 +128,6 @@ namespace EBookReader
                             FileBrowserHelpers.DeleteFile(file.Path);
                             break;
                         case ".epub":
-                            //fileName = FileBrowserHelpers.GetFilename(file.Path);
-
                             EpubBook epubFile = EpubReader.ReadBook(file.Path);
 
                             fileName = epubFile.Title + " (" + epubFile.Author + ")";
@@ -192,6 +185,35 @@ namespace EBookReader
                             SaveFile(newBook, finalText);
 
                             FileBrowserHelpers.DeleteFile(file.Path);
+                            break;
+                        case ".pdf":
+                            var document = PdfiumViewer.PdfDocument.Load(file.Path);
+                            var title = document.GetInformation().Title;
+
+                            if (FilesData.Files.Any(x => x.Name == title))
+                            {
+                                return;
+                            }
+
+                            fileName = FileBrowserHelpers.GetFilename(file.Path);
+                            filePath = Application.persistentDataPath + _targetFolder + fileName;
+
+                            imagePath = Application.persistentDataPath + _targetFolder + fileName.Remove(fileName.Length - 4) + ".png";
+
+                            var image = document.Render(0, 72, 72, false);
+                            image.Save(imagePath, System.Drawing.Imaging.ImageFormat.Png);
+
+                            imagePath = imagePath.Replace("/", "\\");
+                            filePath = filePath.Replace("/", "\\");
+
+                            document.Dispose();
+
+                            FileBrowserHelpers.MoveFile(file.Path, filePath);
+
+                            newBook = new FileData(title, filePath, imagePath, FileData.FileType.PdfFile);
+
+                            SaveFile(newBook);
+                            
                             break;
                     }
                 }
@@ -282,21 +304,35 @@ namespace EBookReader
         public Sprite LoadSprite(string path)
         {
             byte[] bytes = new byte[0];
-
-            try
-            {
-                bytes = FileBrowserHelpers.ReadBytesFromFile(path);
-            }
-            catch
-            {
-                Debug.LogError("Loading image is error: no file exist!");
-            }
-
             Texture2D tex = new Texture2D(2, 2);
+
+            bytes = FileBrowserHelpers.ReadBytesFromFile(path);
             tex.LoadImage(bytes);
 
             Rect rec = new Rect(0, 0, tex.width, tex.height);
             Sprite sprite = Sprite.Create(tex, rec, new Vector2(0.5f, 0.5f), 100);
+
+            return sprite;
+        }
+
+        public Sprite GetPage(PdfiumViewer.PdfDocument doc, int pageNum)
+        {
+            if (pageNum >= doc.PageCount)
+            {
+                return null;
+            }
+
+            var tempPath = Application.persistentDataPath + _targetFolder + "_tempImage_.png";
+
+            if (FileBrowserHelpers.FileExists(tempPath))
+            {
+                FileBrowserHelpers.DeleteFile(tempPath);
+            }
+
+            var image = doc.Render(pageNum, 72, 72, false);
+            image.Save(tempPath, System.Drawing.Imaging.ImageFormat.Png);
+
+            var sprite = LoadSprite(tempPath);
 
             return sprite;
         }
@@ -312,11 +348,11 @@ namespace EBookReader
         {
             FileBrowserHelpers.DeleteFile(file.Path);
 
-            if (file.ImagePath != string.Empty)
+            if (file.CoverImagePath != string.Empty)
             {
                 try
                 {
-                    FileBrowserHelpers.DeleteFile(file.ImagePath);
+                    FileBrowserHelpers.DeleteFile(file.CoverImagePath);
                 }
                 catch
                 {
@@ -331,7 +367,7 @@ namespace EBookReader
             filesListChanged?.Invoke();
         }
 
-        public void SaveFile(FileData file, string text)
+        public void SaveFile(FileData file, string text = null)
         {
             if (file == null)
             {
@@ -358,7 +394,10 @@ namespace EBookReader
 
             try
             {
-                FileBrowserHelpers.WriteTextToFile(file.Path, text);
+                if (text != null)
+                {
+                    FileBrowserHelpers.WriteTextToFile(file.Path, text);
+                }
 
                 if (!FilesData.Files.Contains(file))
                 {

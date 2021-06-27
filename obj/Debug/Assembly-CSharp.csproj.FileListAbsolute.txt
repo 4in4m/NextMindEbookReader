@@ -108,8 +108,6 @@ D:\Projects\Work\NextMind\Unity\NextMindEbookReader\Temp\bin\Debug\System.Xml.XP
 D:\Projects\Work\NextMind\Unity\NextMindEbookReader\Temp\bin\Debug\Unity.2D.Sprite.Editor.dll
 D:\Projects\Work\NextMind\Unity\NextMindEbookReader\Temp\bin\Debug\Unity.CollabProxy.Editor.dll
 D:\Projects\Work\NextMind\Unity\NextMindEbookReader\Temp\bin\Debug\Unity.Rider.Editor.dll
-D:\Projects\Work\NextMind\Unity\NextMindEbookReader\Temp\bin\Debug\Unity.Scripting.Python.Editor.dll
-D:\Projects\Work\NextMind\Unity\NextMindEbookReader\Temp\bin\Debug\Unity.Scripting.Python.Editor.PlatformCheck.dll
 D:\Projects\Work\NextMind\Unity\NextMindEbookReader\Temp\bin\Debug\Unity.TextMeshPro.dll
 D:\Projects\Work\NextMind\Unity\NextMindEbookReader\Temp\bin\Debug\Unity.TextMeshPro.Editor.dll
 D:\Projects\Work\NextMind\Unity\NextMindEbookReader\Temp\bin\Debug\Unity.Timeline.dll
@@ -183,7 +181,6 @@ D:\Projects\Work\NextMind\Unity\NextMindEbookReader\Temp\bin\Debug\Unity.Cecil.d
 D:\Projects\Work\NextMind\Unity\NextMindEbookReader\Temp\bin\Debug\Unity.SerializationLogic.dll
 D:\Projects\Work\NextMind\Unity\NextMindEbookReader\Temp\bin\Debug\ExCSS.Unity.dll
 D:\Projects\Work\NextMind\Unity\NextMindEbookReader\Temp\bin\Debug\Unity.Legacy.NRefactory.dll
-D:\Projects\Work\NextMind\Unity\NextMindEbookReader\Temp\bin\Debug\Python.Runtime.dll
 D:\Projects\Work\NextMind\Unity\NextMindEbookReader\Temp\bin\Debug\UnityEditor.TestRunner.dll
 D:\Projects\Work\NextMind\Unity\NextMindEbookReader\Temp\bin\Debug\nunit.framework.dll
 D:\Projects\Work\NextMind\Unity\NextMindEbookReader\Temp\bin\Debug\Unity.CecilTools.dll
@@ -258,8 +255,6 @@ D:\Projects\Work\NextMind\Unity\NextMindEbookReader\Temp\bin\Debug\Unity.VSCode.
 D:\Projects\Work\NextMind\Unity\NextMindEbookReader\Temp\bin\Debug\Unity.TextMeshPro.Editor.pdb
 D:\Projects\Work\NextMind\Unity\NextMindEbookReader\Temp\bin\Debug\UnityEngine.UI.pdb
 D:\Projects\Work\NextMind\Unity\NextMindEbookReader\Temp\bin\Debug\Unity.Timeline.pdb
-D:\Projects\Work\NextMind\Unity\NextMindEbookReader\Temp\bin\Debug\Unity.Scripting.Python.Editor.PlatformCheck.pdb
-D:\Projects\Work\NextMind\Unity\NextMindEbookReader\Temp\bin\Debug\Unity.Scripting.Python.Editor.pdb
 D:\Projects\Work\NextMind\Unity\NextMindEbookReader\Temp\bin\Debug\Unity.CollabProxy.Editor.pdb
 D:\Projects\Work\NextMind\Unity\NextMindEbookReader\Temp\bin\Debug\Unity.Rider.Editor.pdb
 D:\Projects\Work\NextMind\Unity\NextMindEbookReader\Temp\bin\Debug\Unity.TextMeshPro.pdb
@@ -272,6 +267,14 @@ D:\Projects\Work\NextMind\Unity\NextMindEbookReader\obj\Debug\Assembly-CSharp.cs
 D:\Projects\Work\NextMind\Unity\NextMindEbookReader\obj\Debug\Assembly-CSharp.csproj.CopyComplete
 D:\Projects\Work\NextMind\Unity\NextMindEbookReader\obj\Debug\Assembly-CSharp.dll
 D:\Projects\Work\NextMind\Unity\NextMindEbookReader\obj\Debug\Assembly-CSharp.pdb
+D:\Projects\Work\NextMind\Unity\NextMindEbookReader\Temp\bin\Debug\Ionic.Zip.dll
+D:\Projects\Work\NextMind\Unity\NextMindEbookReader\Temp\bin\Debug\AngleSharp.dll
+D:\Projects\Work\NextMind\Unity\NextMindEbookReader\Temp\bin\Debug\Assembly-CSharp-firstpass.pdb
+D:\Projects\Work\NextMind\Unity\NextMindEbookReader\Temp\bin\Debug\AngleSharp.xml
+D:\Projects\Work\NextMind\Unity\NextMindEbookReader\Temp\bin\Debug\HtmlAgilityPack.dll
+D:\Projects\Work\NextMind\Unity\NextMindEbookReader\Temp\bin\Debug\VersOne.Epub.dll
+D:\Projects\Work\NextMind\Unity\NextMindEbookReader\Temp\bin\Debug\HtmlAgilityPack.pdb
+D:\Projects\Work\NextMind\Unity\NextMindEbookReader\Temp\bin\Debug\HtmlAgilityPack.xml
 D:\Projects\Work\NextMind\Unity\NextMindEbookReader\Temp\bin\Debug\Boo.Lang.dll
 D:\Projects\Work\NextMind\Unity\NextMindEbookReader\Temp\bin\Debug\Microsoft.CSharp.dll
 D:\Projects\Work\NextMind\Unity\NextMindEbookReader\Temp\bin\Debug\System.ComponentModel.Annotations.dll
@@ -290,11 +293,7 @@ D:\Projects\Work\NextMind\Unity\NextMindEbookReader\Temp\bin\Debug\Boo.Lang.Comp
 D:\Projects\Work\NextMind\Unity\NextMindEbookReader\Temp\bin\Debug\Boo.Lang.PatternMatching.dll
 D:\Projects\Work\NextMind\Unity\NextMindEbookReader\Temp\bin\Debug\Boo.Lang.Parser.dll
 D:\Projects\Work\NextMind\Unity\NextMindEbookReader\Temp\bin\Debug\Boo.Lang.Useful.dll
-D:\Projects\Work\NextMind\Unity\NextMindEbookReader\Temp\bin\Debug\Ionic.Zip.dll
-D:\Projects\Work\NextMind\Unity\NextMindEbookReader\Temp\bin\Debug\AngleSharp.dll
-D:\Projects\Work\NextMind\Unity\NextMindEbookReader\Temp\bin\Debug\Assembly-CSharp-firstpass.pdb
-D:\Projects\Work\NextMind\Unity\NextMindEbookReader\Temp\bin\Debug\AngleSharp.xml
-D:\Projects\Work\NextMind\Unity\NextMindEbookReader\Temp\bin\Debug\HtmlAgilityPack.dll
-D:\Projects\Work\NextMind\Unity\NextMindEbookReader\Temp\bin\Debug\VersOne.Epub.dll
-D:\Projects\Work\NextMind\Unity\NextMindEbookReader\Temp\bin\Debug\HtmlAgilityPack.pdb
-D:\Projects\Work\NextMind\Unity\NextMindEbookReader\Temp\bin\Debug\HtmlAgilityPack.xml
+D:\Projects\Work\NextMind\Unity\NextMindEbookReader\Temp\bin\Debug\PdfiumViewer.dll
+D:\Projects\Work\NextMind\Unity\NextMindEbookReader\Temp\bin\Debug\PdfiumViewer.resources.dll
+D:\Projects\Work\NextMind\Unity\NextMindEbookReader\Temp\bin\Debug\System.Drawing.dll
+D:\Projects\Work\NextMind\Unity\NextMindEbookReader\Temp\bin\Debug\nl\PdfiumViewer.resources.dll

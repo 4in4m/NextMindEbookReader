@@ -8,7 +8,6 @@ D:\Projects\Work\NextMind\Unity\NextMindEbookReader\Temp\bin\Debug\netstandard.d
 D:\Projects\Work\NextMind\Unity\NextMindEbookReader\Temp\bin\Debug\NextMind.dll
 D:\Projects\Work\NextMind\Unity\NextMindEbookReader\Temp\bin\Debug\NextMind.Editor.dll
 D:\Projects\Work\NextMind\Unity\NextMindEbookReader\Temp\bin\Debug\nunit.framework.dll
-D:\Projects\Work\NextMind\Unity\NextMindEbookReader\Temp\bin\Debug\Python.Runtime.dll
 D:\Projects\Work\NextMind\Unity\NextMindEbookReader\Temp\bin\Debug\SyntaxTree.VisualStudio.Unity.Bridge.dll
 D:\Projects\Work\NextMind\Unity\NextMindEbookReader\Temp\bin\Debug\System.AppContext.dll
 D:\Projects\Work\NextMind\Unity\NextMindEbookReader\Temp\bin\Debug\System.Collections.Concurrent.dll
@@ -280,3 +279,7 @@ D:\Projects\Work\NextMind\Unity\NextMindEbookReader\Temp\bin\Debug\VersOne.Epub.
 D:\Projects\Work\NextMind\Unity\NextMindEbookReader\Temp\bin\Debug\AngleSharp.xml
 D:\Projects\Work\NextMind\Unity\NextMindEbookReader\Temp\bin\Debug\HtmlAgilityPack.pdb
 D:\Projects\Work\NextMind\Unity\NextMindEbookReader\Temp\bin\Debug\HtmlAgilityPack.xml
+D:\Projects\Work\NextMind\Unity\NextMindEbookReader\Temp\bin\Debug\PdfiumViewer.dll
+D:\Projects\Work\NextMind\Unity\NextMindEbookReader\Temp\bin\Debug\PdfiumViewer.resources.dll
+D:\Projects\Work\NextMind\Unity\NextMindEbookReader\Temp\bin\Debug\System.Drawing.dll
+D:\Projects\Work\NextMind\Unity\NextMindEbookReader\Temp\bin\Debug\nl\PdfiumViewer.resources.dll

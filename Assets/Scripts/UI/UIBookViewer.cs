@@ -5,6 +5,9 @@ using UnityEngine.UI;
 using TMPro;
 using NextMind.NeuroTags;
 using UnityEngine.Events;
+using System.Linq;
+using PdfiumViewer;
+using System;
 
 namespace EBookReader
 {
@@ -13,6 +16,8 @@ namespace EBookReader
         [SerializeField] private UIColorSwitcher _colorSwitcher;
 
         [SerializeField] private TMP_Text _contentText;
+
+        [SerializeField] private Image _pageImage;
 
         [SerializeField] private GameObject _loadingPanel;
 
@@ -37,8 +42,11 @@ namespace EBookReader
         [SerializeField] private Button _deleteButton;
 
         private FileData _currentFile;
+        private PdfDocument _currentPdf;
         private string _currentText;
         private int _curCharIndex;
+
+        private List<string> _tempImages = new List<string>();
 
         private List<int> _leftCharsIndexes = new List<int>();
 
@@ -88,7 +96,7 @@ namespace EBookReader
 
         private void OnEnable()
         {
-            StartCoroutine(SyncFile());
+            
         }
 
         private void OnDisable()
@@ -96,8 +104,10 @@ namespace EBookReader
             StopAllCoroutines();
         }
 
-        private IEnumerator SyncFile()
+        private IEnumerator SyncTextFile()
         {
+            _currentText = AppManager.Instance.LoadFile(_currentFile.Path);
+
             _curCharIndex = 0;
             _leftCharsIndexes.Clear();
 
@@ -116,21 +126,43 @@ namespace EBookReader
 
                 yield return null;
             }
+        }
 
-            _loadingPanel.SetActive(false);
+        private void SyncFile()
+        {
+            _curCharIndex = _currentFile.CurCharIndex;
+
+            _currentPdf = PdfDocument.Load(_currentFile.Path);
+            var sprite = AppManager.Instance.GetPage(_currentPdf, _curCharIndex);
+
+            _pageImage.sprite = sprite;
         }
 
         private void NextPage()
         {
-            _speechController.StopSpeaking();
+            if (_currentFile.Type == FileData.FileType.PdfFile)
+            {
+                if (_curCharIndex < _currentPdf.PageCount - 1)
+                {
+                    _curCharIndex++;
+                }
 
-            _leftCharsIndexes.Add(_curCharIndex);
-            _curCharIndex += _contentText.firstOverflowCharacterIndex;
+                var sprite = AppManager.Instance.GetPage(_currentPdf, _curCharIndex);
 
-            string newText = _currentText.Substring(_curCharIndex, 16383);
+                _pageImage.sprite = sprite;
+            }
+            else
+            {
+                _speechController.StopSpeaking();
 
-            _contentText.text = newText;
-            _contentText.ForceMeshUpdate();
+                _leftCharsIndexes.Add(_curCharIndex);
+                _curCharIndex += _contentText.firstOverflowCharacterIndex;
+
+                string newText = _currentText.Substring(_curCharIndex, 16383);
+
+                _contentText.text = newText;
+                _contentText.ForceMeshUpdate();
+            }
 
             _currentFile.CurCharIndex = _curCharIndex;
             AppManager.Instance.SaveFilesData();
@@ -138,23 +170,39 @@ namespace EBookReader
 
         private void PrevPage()
         {
-            _speechController.StopSpeaking();
-
-            if (_leftCharsIndexes.Count > 0)
+            if (_currentFile.Type == FileData.FileType.PdfFile)
             {
-                _curCharIndex = _leftCharsIndexes[_leftCharsIndexes.Count - 1];
+                if (_curCharIndex <= 0)
+                {
+                    return;
+                }
 
-                _leftCharsIndexes.Remove(_curCharIndex);
+                _curCharIndex--;
+
+                var sprite = AppManager.Instance.GetPage(_currentPdf, _curCharIndex);
+
+                _pageImage.sprite = sprite;
             }
             else
             {
-                _curCharIndex = 0;
+                _speechController.StopSpeaking();
+
+                if (_leftCharsIndexes.Count > 0)
+                {
+                    _curCharIndex = _leftCharsIndexes[_leftCharsIndexes.Count - 1];
+
+                    _leftCharsIndexes.Remove(_curCharIndex);
+                }
+                else
+                {
+                    _curCharIndex = 0;
+                }
+
+                string newText = _currentText.Substring(_curCharIndex, 16383);
+
+                _contentText.text = newText;
+                _contentText.ForceMeshUpdate();
             }
-
-            string newText = _currentText.Substring(_curCharIndex, 16383);
-
-            _contentText.text = newText;
-            _contentText.ForceMeshUpdate();
 
             _currentFile.CurCharIndex = _curCharIndex;
             AppManager.Instance.SaveFilesData();
@@ -162,20 +210,47 @@ namespace EBookReader
 
         private void SpeakCurrentPage()
         {
-            string text = _currentText.Substring(_curCharIndex, _contentText.firstOverflowCharacterIndex);
+            if (_currentText != null)
+            {
+                string text = _currentText.Substring(_curCharIndex, _contentText.firstOverflowCharacterIndex);
 
-            _speechController.SpeakText(text);
+                _speechController.SpeakText(text);
+            }
         }
 
-        public void DisplayBook(FileData file)
+        public IEnumerator DisplayBook(FileData file)
         {
             _loadingPanel.SetActive(true);
 
-            _currentFile = file;
+            if (file != _currentFile)
+            {
+                yield return new WaitForSeconds(0.01f);
 
-            string text = AppManager.Instance.LoadFile(_currentFile.Path);
+                _currentFile = file;
 
-            _currentText = text;
+                switch (_currentFile.Type)
+                {
+                    case FileData.FileType.PdfFile:
+                        SyncFile();
+                        break;
+                    default:
+                        yield return SyncTextFile();
+
+                        _loadingPanel.SetActive(false);
+                        _contentText.enabled = true;
+                        _pageImage.enabled = false;
+                        break;
+                }
+            }
+
+            switch (file.Type)
+            {
+                case FileData.FileType.PdfFile:
+                    _contentText.enabled = false;
+                    _pageImage.enabled = true;
+                    _loadingPanel.SetActive(false);
+                    break;
+            }
         }
     }
 }
