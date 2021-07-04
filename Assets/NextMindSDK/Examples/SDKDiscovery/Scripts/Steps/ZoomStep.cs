@@ -67,12 +67,16 @@ namespace NextMind.Examples.Discovery
         {
             followedObject = farObject.transform;
 
-           StartCoroutine(OnZoom(true));
+            StartCoroutine(OnZoom(true));
         }
 
         public void OnReleasedFarObject(GameObject farObject)
         {
-            StartCoroutine(OnZoom(false));
+            // farObject can be disabled when leaving the SDKDiscovery scene from this step.
+            if (farObject.activeInHierarchy)
+            {
+                StartCoroutine(OnZoom(false));
+            }
         }
 
         #endregion

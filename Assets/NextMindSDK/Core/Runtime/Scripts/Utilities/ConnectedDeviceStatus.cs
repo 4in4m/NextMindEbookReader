@@ -81,7 +81,7 @@ namespace NextMind.Devices
 
                 uint level = connectedDevice.GetBatteryLevel();
                 batteryText.text = level + "%";
-                batteryBar.fillAmount = level / 100;
+                batteryBar.fillAmount = level / 100f;
             }
             else
             {

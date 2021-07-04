@@ -39,7 +39,7 @@ namespace NextMind.Examples
         /// <summary>
         /// The name of the loaded scene.
         /// </summary>
-        private static string loadedScene = null;
+        private static string loadedScene = string.Empty;
 
         /// <summary>
         /// The panel displaying the scenes choice to the user.
@@ -150,6 +150,11 @@ namespace NextMind.Examples
             {
                 tweakableLights[i].intensity = targetIntensities[i];
             }
+        }
+
+        public void ActivateLight(bool activated)
+        {
+            tweakableLights[2].gameObject.SetActive(activated);
         }
     }
 }

@@ -29,6 +29,8 @@ namespace EBookReader
 
         [SerializeField] private Button _calibrationButton;
 
+        [SerializeField] private Button _exitButton;
+
         [SerializeField] private Button _pageUpButton;
 
         [SerializeField] private Button _pageDownButton;
@@ -57,6 +59,9 @@ namespace EBookReader
 
             _calibrationButton.onClick.AddListener(() => StartCalibration());
             _calibrationButton.GetComponentInChildren<NeuroTag>().onTriggered.AddListener(() => StartCalibration());
+
+            _exitButton.onClick.AddListener(() => Application.Quit());
+            _exitButton.GetComponentInChildren<NeuroTag>().onTriggered.AddListener(() => Application.Quit());
 
             UnityAction createNewFile = new UnityAction(() =>
             {

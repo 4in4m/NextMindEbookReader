@@ -47,16 +47,12 @@ namespace NextMind.Devices
         /// </summary>
         [SerializeField]
         private Color neutralColor = Color.grey;
+
         /// <summary>
-        /// The color to apply on a electrode with a perfect contact value.
+        /// The gradient coloring the electrdodes from bad contact to perfect contact.
         /// </summary>
         [SerializeField]
-        private Color validColor = Color.green;
-        /// <summary>
-        /// The color to apply on a electrode with a bad contact value.
-        /// </summary>
-        [SerializeField]
-        private Color wrongColor = Color.red;
+        private Gradient colorGradient;
 
         /// <summary>
         /// The list of electrodes names.
@@ -153,7 +149,7 @@ namespace NextMind.Devices
                                 }
                                 else
                                 {
-                                    targetColor = Color.Lerp(wrongColor, validColor, contactValues[electrodesNames[i]]);
+                                    targetColor = colorGradient.Evaluate(value);
                                 }
 
                                 electrodesImage[i].color = targetColor;

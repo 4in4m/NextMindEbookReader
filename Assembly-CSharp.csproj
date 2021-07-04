@@ -62,8 +62,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Book-Page Curl\scripts\AutoFlip.cs" />
-    <Compile Include="Assets\Book-Page Curl\scripts\Book.cs" />
     <Compile Include="Assets\FB2Library\Elements\AnnotationItem.cs" />
     <Compile Include="Assets\FB2Library\Elements\AnnotationType.cs" />
     <Compile Include="Assets\FB2Library\Elements\AuthorItem.cs" />

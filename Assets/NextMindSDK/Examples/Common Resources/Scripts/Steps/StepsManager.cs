@@ -84,6 +84,12 @@ namespace NextMind.Examples.Steps
 			}
 		}
 
+        private void OnDestroy()
+        {
+			// Exit the current step before destroying the object.
+			steps[currentStepIndex].OnExitStep();
+		}
+
         public void Restart()
         {
 			InitializeSteps();

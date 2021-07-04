@@ -75,11 +75,11 @@ Material:
     - PixelSnap: 0
     - _AlphaCutoff: 1
     - _BeansDensity: 1
-    - _Blend: 1
+    - _Blend: 0
     - _BumpScale: 1
     - _ConstantSize: 1
     - _Cutoff: 0.58
-    - _Density: 6
+    - _Density: 4
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
     - _EnableExternalAlpha: 0
@@ -92,6 +92,7 @@ Material:
     - _Mix: 0.5
     - _Mode: 1
     - _OcclusionStrength: 1
+    - _OverlayBlending: 1
     - _Parallax: 0.02
     - _Redify: 1
     - _ScreenRatio: 1.777

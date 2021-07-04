@@ -102,6 +102,16 @@
     <Compile Include="Assets\NextMindSDK\Examples\Common Resources\Scripts\Utils\EnsureWorldCamera.cs" />
     <Compile Include="Assets\NextMindSDK\Examples\Common Resources\Scripts\Utils\EventNotifier.cs" />
     <Compile Include="Assets\NextMindSDK\Examples\Common Resources\Scripts\Utils\MouseCursorEnabler.cs" />
+    <Compile Include="Assets\NextMindSDK\Examples\NeuroTagGallery\Scripts\Steps\ColoredNeuroTagStep.cs" />
+    <Compile Include="Assets\NextMindSDK\Examples\NeuroTagGallery\Scripts\Steps\ConclusionStep.cs" />
+    <Compile Include="Assets\NextMindSDK\Examples\NeuroTagGallery\Scripts\Steps\ConstantSizeStep.cs" />
+    <Compile Include="Assets\NextMindSDK\Examples\NeuroTagGallery\Scripts\Steps\GuidelinesShapeStep.cs" />
+    <Compile Include="Assets\NextMindSDK\Examples\NeuroTagGallery\Scripts\Steps\GuidelinesSizeStep.cs" />
+    <Compile Include="Assets\NextMindSDK\Examples\NeuroTagGallery\Scripts\Steps\LitUnlitStep.cs" />
+    <Compile Include="Assets\NextMindSDK\Examples\NeuroTagGallery\Scripts\Steps\NeuroTagGalleryStep.cs" />
+    <Compile Include="Assets\NextMindSDK\Examples\NeuroTagGallery\Scripts\Steps\ProjectionStep.cs" />
+    <Compile Include="Assets\NextMindSDK\Examples\NeuroTagGallery\Scripts\Steps\RenderModeStep.cs" />
+    <Compile Include="Assets\NextMindSDK\Examples\NeuroTagGallery\Scripts\Utils\DescriptionModifier.cs" />
     <Compile Include="Assets\NextMindSDK\Examples\SDKDiscovery\Scripts\Feedbacks\LevitatingNeuroTagFeedback.cs" />
     <Compile Include="Assets\NextMindSDK\Examples\SDKDiscovery\Scripts\Feedbacks\NeuroTagParticleBurst.cs" />
     <Compile Include="Assets\NextMindSDK\Examples\SDKDiscovery\Scripts\Feedbacks\NeuroTagSmoothScale.cs" />

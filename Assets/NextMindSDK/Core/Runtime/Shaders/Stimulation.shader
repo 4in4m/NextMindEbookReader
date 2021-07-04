@@ -8,7 +8,7 @@
         _Blend("Blend",Range(0,1)) = 1
         _Density("Density", Float) = 1
         _ScreenRatio("Screen Ratio", Float) = 1.777
-        [Toggle] _OverlayBlending("Overlay blending", Float) = 0
+        [Toggle] _OverlayBlending("Overlay blending", Float) = 1
     }
 
     SubShader

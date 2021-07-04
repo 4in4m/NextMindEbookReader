@@ -24,18 +24,7 @@ fixed _Blend;
 // Use as the stimulation texture scale in a triplanar context. Initialliy called density because it is a simple way to deal with "beans" density.
 half _Density;
 
-// TODO: should be set at application runtime from used screen dimension.
-half _ScreenRatio;
-
 bool _OverlayBlending;
-
-fixed4 Overlay(fixed4 a, fixed4 b)
-{
-    fixed4 r = a < .5 ? 2.0 * a * b : 1.0 - 2.0 * (1.0 - a) * (1.0 - b);
-    r.a = b.a;
-
-    return lerp(b,r,a.a);
-}
 
 void Unity_Blend_Overlay_float4(float4 Base, float4 Blend, float Opacity, out float4 Out)
 {
@@ -94,15 +83,12 @@ float4 BlendStimulationTexture(float4 mainTex, float4 beansTex)
 
 float4 ScreenCoordinatesProjection(Input IN, float4 mainTex)
 {
-    float2 screenUV = IN.screenPos.xy / IN.screenPos.w;
-    
-    half referenceRatio = _ScreenRatio / 1.333f;
+    float2 textureCoordinate = _Density * (IN.screenPos / IN.screenPos.w);
 
-    float2 tiling = half2(referenceRatio * _Density, referenceRatio * _Density / _ScreenRatio);
-
-    screenUV *= float2(tiling.x, tiling.y);
-
-    float4 beansTex = tex2D(_Stimulation, screenUV);
+    float aspect = _ScreenParams.x / _ScreenParams.y;
+    textureCoordinate.x = textureCoordinate.x * aspect;
+   
+    float4 beansTex = tex2D(_Stimulation, textureCoordinate);
 
     return BlendStimulationTexture(mainTex, beansTex);
 }

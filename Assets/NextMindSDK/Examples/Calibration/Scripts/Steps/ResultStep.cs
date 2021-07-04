@@ -21,15 +21,15 @@ namespace NextMind.Examples.Calibration
         protected GameObject backButton = null;
 
         /// <summary>
-        /// Array of the grade ring.
+        /// Array of the grade disks.
         /// </summary>
         [SerializeField]
         private Image[] gradeImage = null;
 
         /// <summary>
-        /// Array of the mention.
+        /// Array of the mentions.
         /// </summary>
-        [SerializeField]
+        [SerializeField,TextArea]
         private string[] gradeMention = null;
 
         public override void OnEnterStep()
