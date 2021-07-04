@@ -115,6 +115,7 @@
     <Compile Include="Assets\Scripts\Epub\UEPubReader.cs" />
     <Compile Include="Assets\Scripts\FB2SampleConverter.cs" />
     <Compile Include="Assets\Scripts\FileData.cs" />
+    <Compile Include="Assets\Scripts\LogAnywhere.cs" />
     <Compile Include="Assets\Scripts\SceneUnloader.cs" />
     <Compile Include="Assets\Scripts\Speech\SpeechController.cs" />
     <Compile Include="Assets\Scripts\Speech\VoiceManager.cs" />

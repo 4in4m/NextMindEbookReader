@@ -10,6 +10,7 @@ ScriptsOnlyBuild:
     - EBookReader.UIManager
     - EBookReader.UISymbolButton
     - FB2SampleConverter
+    - LogAnywhere
     - SceneUnloader
     - VoiceManager
     NextMind.UnitySDK.Examples.dll:
@@ -137,95 +138,95 @@ ScriptsOnlyBuild:
     - Class: 104
       Script: {instanceID: 0}
     - Class: 114
-      Script: {instanceID: 11330}
-    - Class: 114
-      Script: {instanceID: 11334}
+      Script: {instanceID: 11332}
     - Class: 114
       Script: {instanceID: 11336}
     - Class: 114
-      Script: {instanceID: 11340}
+      Script: {instanceID: 11338}
     - Class: 114
-      Script: {instanceID: 11360}
+      Script: {instanceID: 11362}
     - Class: 114
-      Script: {instanceID: 11436}
+      Script: {instanceID: 11442}
     - Class: 114
-      Script: {instanceID: 11440}
+      Script: {instanceID: 11446}
     - Class: 114
-      Script: {instanceID: 11590}
+      Script: {instanceID: 11598}
     - Class: 114
-      Script: {instanceID: 11594}
+      Script: {instanceID: 11602}
     - Class: 114
-      Script: {instanceID: 11656}
+      Script: {instanceID: 11664}
     - Class: 114
-      Script: {instanceID: 11684}
+      Script: {instanceID: 11692}
     - Class: 114
-      Script: {instanceID: 11712}
+      Script: {instanceID: 11720}
     - Class: 114
-      Script: {instanceID: 11732}
+      Script: {instanceID: 11740}
     - Class: 114
-      Script: {instanceID: 11826}
+      Script: {instanceID: 11834}
     - Class: 114
-      Script: {instanceID: 11862}
+      Script: {instanceID: 11870}
     - Class: 114
-      Script: {instanceID: 11946}
+      Script: {instanceID: 11948}
     - Class: 114
-      Script: {instanceID: 11974}
+      Script: {instanceID: 11956}
     - Class: 114
-      Script: {instanceID: 12068}
+      Script: {instanceID: 11984}
     - Class: 114
-      Script: {instanceID: 12288}
+      Script: {instanceID: 12076}
     - Class: 114
-      Script: {instanceID: 12320}
+      Script: {instanceID: 12298}
     - Class: 114
-      Script: {instanceID: 12376}
+      Script: {instanceID: 12332}
     - Class: 114
-      Script: {instanceID: 12380}
+      Script: {instanceID: 12388}
     - Class: 114
-      Script: {instanceID: 12530}
+      Script: {instanceID: 12392}
     - Class: 114
-      Script: {instanceID: 12574}
+      Script: {instanceID: 12544}
     - Class: 114
-      Script: {instanceID: 12720}
+      Script: {instanceID: 12588}
     - Class: 114
-      Script: {instanceID: 12728}
+      Script: {instanceID: 12734}
     - Class: 114
-      Script: {instanceID: 12730}
+      Script: {instanceID: 12742}
     - Class: 114
-      Script: {instanceID: 12762}
+      Script: {instanceID: 12744}
     - Class: 114
-      Script: {instanceID: 12820}
+      Script: {instanceID: 12776}
     - Class: 114
-      Script: {instanceID: 12888}
+      Script: {instanceID: 12836}
     - Class: 114
-      Script: {instanceID: 12894}
+      Script: {instanceID: 12904}
     - Class: 114
-      Script: {instanceID: 12984}
+      Script: {instanceID: 12910}
     - Class: 114
-      Script: {instanceID: 13150}
+      Script: {instanceID: 13002}
     - Class: 114
-      Script: {instanceID: 13156}
+      Script: {instanceID: 13168}
     - Class: 114
-      Script: {instanceID: 13204}
-    - Class: 114
-      Script: {instanceID: 13218}
+      Script: {instanceID: 13174}
     - Class: 114
       Script: {instanceID: 13222}
     - Class: 114
-      Script: {instanceID: 13228}
+      Script: {instanceID: 13236}
     - Class: 114
-      Script: {instanceID: 13260}
+      Script: {instanceID: 13240}
     - Class: 114
-      Script: {instanceID: 13382}
+      Script: {instanceID: 13246}
     - Class: 114
-      Script: {instanceID: 13464}
+      Script: {instanceID: 13278}
     - Class: 114
-      Script: {instanceID: 13544}
+      Script: {instanceID: 13400}
     - Class: 114
-      Script: {instanceID: 13556}
+      Script: {instanceID: 13482}
     - Class: 114
-      Script: {instanceID: 13560}
+      Script: {instanceID: 13564}
     - Class: 114
-      Script: {instanceID: 13582}
+      Script: {instanceID: 13576}
+    - Class: 114
+      Script: {instanceID: 13580}
+    - Class: 114
+      Script: {instanceID: 13602}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -280,117 +281,119 @@ ScriptsOnlyBuild:
     - Class: 104
       Script: {instanceID: 0}
     - Class: 114
-      Script: {instanceID: 11330}
-    - Class: 114
-      Script: {instanceID: 11334}
+      Script: {instanceID: 11332}
     - Class: 114
       Script: {instanceID: 11336}
     - Class: 114
       Script: {instanceID: 11338}
     - Class: 114
-      Script: {instanceID: 11360}
+      Script: {instanceID: 11340}
     - Class: 114
-      Script: {instanceID: 11420}
+      Script: {instanceID: 11362}
     - Class: 114
-      Script: {instanceID: 11506}
+      Script: {instanceID: 11424}
     - Class: 114
-      Script: {instanceID: 11556}
+      Script: {instanceID: 11512}
     - Class: 114
-      Script: {instanceID: 11624}
+      Script: {instanceID: 11564}
     - Class: 114
-      Script: {instanceID: 11656}
+      Script: {instanceID: 11632}
     - Class: 114
-      Script: {instanceID: 11686}
+      Script: {instanceID: 11664}
     - Class: 114
-      Script: {instanceID: 11712}
+      Script: {instanceID: 11694}
     - Class: 114
-      Script: {instanceID: 11732}
+      Script: {instanceID: 11720}
     - Class: 114
-      Script: {instanceID: 11794}
+      Script: {instanceID: 11740}
     - Class: 114
-      Script: {instanceID: 11826}
+      Script: {instanceID: 11802}
     - Class: 114
-      Script: {instanceID: 11982}
+      Script: {instanceID: 11834}
     - Class: 114
-      Script: {instanceID: 12026}
+      Script: {instanceID: 11992}
     - Class: 114
-      Script: {instanceID: 12056}
+      Script: {instanceID: 12034}
     - Class: 114
-      Script: {instanceID: 12090}
+      Script: {instanceID: 12064}
     - Class: 114
-      Script: {instanceID: 12230}
+      Script: {instanceID: 12098}
     - Class: 114
-      Script: {instanceID: 12288}
+      Script: {instanceID: 12240}
     - Class: 114
-      Script: {instanceID: 12338}
+      Script: {instanceID: 12298}
     - Class: 114
-      Script: {instanceID: 12420}
+      Script: {instanceID: 12350}
     - Class: 114
       Script: {instanceID: 12432}
     - Class: 114
-      Script: {instanceID: 12530}
+      Script: {instanceID: 12444}
     - Class: 114
-      Script: {instanceID: 12562}
+      Script: {instanceID: 12544}
     - Class: 114
-      Script: {instanceID: 12656}
+      Script: {instanceID: 12576}
     - Class: 114
-      Script: {instanceID: 12660}
+      Script: {instanceID: 12670}
     - Class: 114
-      Script: {instanceID: 12672}
+      Script: {instanceID: 12674}
     - Class: 114
-      Script: {instanceID: 12720}
+      Script: {instanceID: 12686}
     - Class: 114
-      Script: {instanceID: 12786}
+      Script: {instanceID: 12734}
     - Class: 114
-      Script: {instanceID: 12820}
+      Script: {instanceID: 12800}
     - Class: 114
-      Script: {instanceID: 12824}
+      Script: {instanceID: 12836}
     - Class: 114
-      Script: {instanceID: 12842}
+      Script: {instanceID: 12840}
     - Class: 114
-      Script: {instanceID: 13034}
+      Script: {instanceID: 12858}
     - Class: 114
-      Script: {instanceID: 13078}
+      Script: {instanceID: 13052}
     - Class: 114
-      Script: {instanceID: 13084}
+      Script: {instanceID: 13096}
     - Class: 114
-      Script: {instanceID: 13136}
+      Script: {instanceID: 13102}
     - Class: 114
-      Script: {instanceID: 13156}
+      Script: {instanceID: 13154}
     - Class: 114
-      Script: {instanceID: 13198}
+      Script: {instanceID: 13174}
     - Class: 114
-      Script: {instanceID: 13218}
+      Script: {instanceID: 13216}
     - Class: 114
-      Script: {instanceID: 13226}
+      Script: {instanceID: 13236}
     - Class: 114
-      Script: {instanceID: 13228}
+      Script: {instanceID: 13244}
     - Class: 114
-      Script: {instanceID: 13260}
+      Script: {instanceID: 13246}
     - Class: 114
-      Script: {instanceID: 13270}
+      Script: {instanceID: 13278}
     - Class: 114
-      Script: {instanceID: 13370}
+      Script: {instanceID: 13288}
     - Class: 114
-      Script: {instanceID: 13458}
+      Script: {instanceID: 13388}
     - Class: 114
-      Script: {instanceID: 13502}
+      Script: {instanceID: 13476}
     - Class: 114
-      Script: {instanceID: 13542}
+      Script: {instanceID: 13520}
     - Class: 114
-      Script: {instanceID: 13560}
+      Script: {instanceID: 13562}
     - Class: 114
-      Script: {instanceID: 13582}
+      Script: {instanceID: 13580}
     - Class: 114
-      Script: {instanceID: 13610}
+      Script: {instanceID: 13602}
     - Class: 114
-      Script: {instanceID: 13624}
+      Script: {instanceID: 13630}
     - Class: 114
-      Script: {instanceID: 13640}
+      Script: {instanceID: 13644}
     - Class: 114
-      Script: {instanceID: 13680}
+      Script: {instanceID: 13660}
     - Class: 114
-      Script: {instanceID: 13688}
+      Script: {instanceID: 13700}
+    - Class: 114
+      Script: {instanceID: 13708}
+    - Class: 114
+      Script: {instanceID: 16652}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -436,16 +439,22 @@ ScriptsOnlyBuild:
     className: Toggle
   - hash:
       serializedVersion: 2
-      Hash: aba7b2852ef61d175dd9602e7723d5e5
-    assemblyName: UnityEngine.UI.dll
-    namespaceName: UnityEngine.UI
-    className: Mask
+      Hash: 67e53d2ce98a4df5b13066d97c1ae821
+    assemblyName: NextMind.UnitySDK.Examples.dll
+    namespaceName: NextMind.Examples.NeuroTagGallery
+    className: RenderModeStep
   - hash:
       serializedVersion: 2
       Hash: 4bc4346a71a8df53a6b106f68ef3a190
     assemblyName: UnityEngine.UI.dll
     namespaceName: UnityEngine.UI
     className: CanvasScaler
+  - hash:
+      serializedVersion: 2
+      Hash: 67e53d2ce98a4df5b13066d97c1ae821
+    assemblyName: NextMind.UnitySDK.Examples.dll
+    namespaceName: NextMind.Examples.NeuroTagGallery
+    className: GuidelinesShapeStep
   - hash:
       serializedVersion: 2
       Hash: c42672c997f8be6b1aa86a927ebea785
@@ -470,6 +479,12 @@ ScriptsOnlyBuild:
     assemblyName: Assembly-CSharp.dll
     namespaceName: EBookReader
     className: UIExpandButton
+  - hash:
+      serializedVersion: 2
+      Hash: 67e53d2ce98a4df5b13066d97c1ae821
+    assemblyName: NextMind.UnitySDK.Examples.dll
+    namespaceName: NextMind.Examples.NeuroTagGallery
+    className: ConstantSizeStep
   - hash:
       serializedVersion: 2
       Hash: 3e40034455634bc58faf961fb2ea5132
@@ -500,6 +515,12 @@ ScriptsOnlyBuild:
     assemblyName: NextMind.UnitySDK.Examples.dll
     namespaceName: NextMind.Examples.Utility
     className: EventNotifier
+  - hash:
+      serializedVersion: 2
+      Hash: 67e53d2ce98a4df5b13066d97c1ae821
+    assemblyName: NextMind.UnitySDK.Examples.dll
+    namespaceName: NextMind.Examples.NeuroTagGallery
+    className: NeuroTagGalleryStep
   - hash:
       serializedVersion: 2
       Hash: c3d3430df9e3ea95e3e3d587961390fb
@@ -682,6 +703,12 @@ ScriptsOnlyBuild:
     className: AnimationPlayableAsset
   - hash:
       serializedVersion: 2
+      Hash: aba7b2852ef61d175dd9602e7723d5e5
+    assemblyName: UnityEngine.UI.dll
+    namespaceName: UnityEngine.UI
+    className: Mask
+  - hash:
+      serializedVersion: 2
       Hash: e86179d006810bdf8f28b7467e45d4a4
     assemblyName: NextMind.UnitySDK.Examples.dll
     namespaceName: NextMind.Examples.Steps
@@ -778,6 +805,12 @@ ScriptsOnlyBuild:
     className: ScaleTransition
   - hash:
       serializedVersion: 2
+      Hash: fefa77a4dc8d50a2c70a41c27220c2dc
+    assemblyName: NextMind.UnitySDK.Examples.dll
+    namespaceName: NextMind.Examples.NeuroTagGallery
+    className: LitUnlitStep
+  - hash:
+      serializedVersion: 2
       Hash: c3d3430df9e3ea95e3e3d587961390fb
     assemblyName: Unity.Timeline.dll
     namespaceName: UnityEngine.Timeline
@@ -824,6 +857,12 @@ ScriptsOnlyBuild:
     assemblyName: UnityEngine.UI.dll
     namespaceName: UnityEngine.UI
     className: ScrollRect
+  - hash:
+      serializedVersion: 2
+      Hash: b5b22ff200be0c2ca8b7beee01e2116b
+    assemblyName: NextMind.UnitySDK.Examples.dll
+    namespaceName: NextMind.Examples.NeuroTagGallery
+    className: DescriptionModifier
   - hash:
       serializedVersion: 2
       Hash: 447cc7079223eb666512762b5300306a
@@ -964,6 +1003,12 @@ ScriptsOnlyBuild:
     className: ListItem
   - hash:
       serializedVersion: 2
+      Hash: 67e53d2ce98a4df5b13066d97c1ae821
+    assemblyName: NextMind.UnitySDK.Examples.dll
+    namespaceName: NextMind.Examples.NeuroTagGallery
+    className: ColoredNeuroTagStep
+  - hash:
+      serializedVersion: 2
       Hash: e244702e0dc05782229aa524e4d757f5
     assemblyName: Assembly-CSharp.dll
     namespaceName: TMPro.Examples
@@ -1052,6 +1097,12 @@ ScriptsOnlyBuild:
     assemblyName: Unity.Timeline.dll
     namespaceName: UnityEngine.Timeline
     className: SignalReceiver
+  - hash:
+      serializedVersion: 2
+      Hash: 67e53d2ce98a4df5b13066d97c1ae821
+    assemblyName: NextMind.UnitySDK.Examples.dll
+    namespaceName: NextMind.Examples.NeuroTagGallery
+    className: ConclusionStep
   - hash:
       serializedVersion: 2
       Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
@@ -1154,6 +1205,12 @@ ScriptsOnlyBuild:
     assemblyName: NextMind.UnitySDK.Examples.dll
     namespaceName: NextMind.Examples.Discovery
     className: PersistantToggleStep
+  - hash:
+      serializedVersion: 2
+      Hash: 67e53d2ce98a4df5b13066d97c1ae821
+    assemblyName: NextMind.UnitySDK.Examples.dll
+    namespaceName: NextMind.Examples.NeuroTagGallery
+    className: GuidelinesSizeStep
   - hash:
       serializedVersion: 2
       Hash: aa2694e4cf671b59ee947e0851cda5e1
@@ -1456,6 +1513,12 @@ ScriptsOnlyBuild:
     className: NeuroTagParticleBurst
   - hash:
       serializedVersion: 2
+      Hash: 67e53d2ce98a4df5b13066d97c1ae821
+    assemblyName: NextMind.UnitySDK.Examples.dll
+    namespaceName: NextMind.Examples.NeuroTagGallery
+    className: ProjectionStep
+  - hash:
+      serializedVersion: 2
       Hash: 0784d4fd5b93bd75440d01eb2fac4233
     assemblyName: Assembly-CSharp.dll
     namespaceName: TMPro.Examples
@@ -1588,64 +1651,10 @@ ScriptsOnlyBuild:
     className: PlayableTrack
   - hash:
       serializedVersion: 2
-      Hash: 67e53d2ce98a4df5b13066d97c1ae821
-    assemblyName: NextMind.UnitySDK.Examples.dll
-    namespaceName: NextMind.Examples.NeuroTagGallery
-    className: RenderModeStep
-  - hash:
-      serializedVersion: 2
-      Hash: 67e53d2ce98a4df5b13066d97c1ae821
-    assemblyName: NextMind.UnitySDK.Examples.dll
-    namespaceName: NextMind.Examples.NeuroTagGallery
-    className: GuidelinesShapeStep
-  - hash:
-      serializedVersion: 2
-      Hash: 67e53d2ce98a4df5b13066d97c1ae821
-    assemblyName: NextMind.UnitySDK.Examples.dll
-    namespaceName: NextMind.Examples.NeuroTagGallery
-    className: ConstantSizeStep
-  - hash:
-      serializedVersion: 2
-      Hash: 67e53d2ce98a4df5b13066d97c1ae821
-    assemblyName: NextMind.UnitySDK.Examples.dll
-    namespaceName: NextMind.Examples.NeuroTagGallery
-    className: NeuroTagGalleryStep
-  - hash:
-      serializedVersion: 2
-      Hash: fefa77a4dc8d50a2c70a41c27220c2dc
-    assemblyName: NextMind.UnitySDK.Examples.dll
-    namespaceName: NextMind.Examples.NeuroTagGallery
-    className: LitUnlitStep
-  - hash:
-      serializedVersion: 2
-      Hash: b5b22ff200be0c2ca8b7beee01e2116b
-    assemblyName: NextMind.UnitySDK.Examples.dll
-    namespaceName: NextMind.Examples.NeuroTagGallery
-    className: DescriptionModifier
-  - hash:
-      serializedVersion: 2
-      Hash: 67e53d2ce98a4df5b13066d97c1ae821
-    assemblyName: NextMind.UnitySDK.Examples.dll
-    namespaceName: NextMind.Examples.NeuroTagGallery
-    className: ColoredNeuroTagStep
-  - hash:
-      serializedVersion: 2
-      Hash: 67e53d2ce98a4df5b13066d97c1ae821
-    assemblyName: NextMind.UnitySDK.Examples.dll
-    namespaceName: NextMind.Examples.NeuroTagGallery
-    className: ConclusionStep
-  - hash:
-      serializedVersion: 2
-      Hash: 67e53d2ce98a4df5b13066d97c1ae821
-    assemblyName: NextMind.UnitySDK.Examples.dll
-    namespaceName: NextMind.Examples.NeuroTagGallery
-    className: GuidelinesSizeStep
-  - hash:
-      serializedVersion: 2
-      Hash: 67e53d2ce98a4df5b13066d97c1ae821
-    assemblyName: NextMind.UnitySDK.Examples.dll
-    namespaceName: NextMind.Examples.NeuroTagGallery
-    className: ProjectionStep
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: LogAnywhere
   platform: 19
   scenePathNames:
   - Assets/Scenes/SampleScene.unity

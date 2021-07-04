@@ -4,6 +4,7 @@ using UnityEngine.Events;
 using NextMind.NeuroTags;
 using UnityEngine.SceneManagement;
 using System.Collections;
+using SimpleFileBrowser;
 
 namespace EBookReader
 {
@@ -144,11 +145,28 @@ namespace EBookReader
                 var file = appManager.FilesData.Files[fileIndex];
                 var slot = _filesSlots[i];
 
+                if (!FileBrowserHelpers.FileExists(file.Path))
+                {
+                    appManager.FilesData.Files.Remove(file);
+                    appManager.SaveFilesData();
+
+                    _filesSlots[i].gameObject.SetActive(false);
+                    continue;
+                }
+
                 Sprite cover = null;
 
                 if (file.CoverImagePath != string.Empty)
                 {
-                    cover = appManager.LoadSprite(file.CoverImagePath);
+                    if (!FileBrowserHelpers.FileExists(file.CoverImagePath))
+                    {
+                        file.CoverImagePath = string.Empty;
+                        appManager.SaveFilesData();
+                    }
+                    else
+                    {
+                        cover = appManager.LoadSprite(file.CoverImagePath);
+                    }
                 }
 
                 UnityAction openFile = new UnityAction(() =>

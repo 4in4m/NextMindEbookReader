@@ -242,7 +242,11 @@ namespace EBookReader
             {
                 foreach (string path in FileBrowser.Result)
                 {
-                    ReadFB2File(path);
+                    string fileName = FileBrowserHelpers.GetFilename(path);
+                    string targetPath = Application.persistentDataPath + _sourceFolder + fileName;
+                    FileBrowserHelpers.MoveFile(path, targetPath);
+
+                    ImportFiles();
                 }
             }
 
