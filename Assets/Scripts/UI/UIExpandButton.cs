@@ -28,7 +28,7 @@ namespace EBookReader
         {
             foreach (var button in SymbolButtons)
             {
-                button.ShowOnlySymbol(true);
+                button.ShowOnlySymbol(enable);
             }
         }
 
