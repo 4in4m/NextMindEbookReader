@@ -86,6 +86,7 @@ namespace EBookReader
                     {
                         InputSymbol(button);
                         expandButton.Close();
+                        expandButton.transform.GetChild(0).gameObject.SetActive(true);
                         DisplayControls(expandButton);
                     });
 
@@ -93,6 +94,7 @@ namespace EBookReader
                     {
                         InputSymbol(button);
                         expandButton.Close();
+                        expandButton.transform.GetChild(0).gameObject.SetActive(true);
                         DisplayControls(expandButton);
                     });
                 }
@@ -167,6 +169,7 @@ namespace EBookReader
             }
 
             button.Expand();
+            button.transform.GetChild(0).gameObject.SetActive(false);
 
             onButtonClicked?.Invoke();
         }
@@ -214,14 +217,16 @@ namespace EBookReader
 
         public void InputEnterLine()
         {
-            _inputField.text += "\n";
+            _inputField.text = _inputField.text.Insert(_inputField.caretPosition, "\n");
+            _inputField.caretPosition++;
 
             onButtonClicked?.Invoke();
         }
 
         public void InputSpaceSymbol()
         {
-            _inputField.text += " ";
+            _inputField.text = _inputField.text.Insert(_inputField.caretPosition, " ");
+            _inputField.caretPosition++;
 
             onButtonClicked?.Invoke();
         }

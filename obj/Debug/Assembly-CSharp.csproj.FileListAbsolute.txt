@@ -297,3 +297,7 @@ D:\Projects\Work\NextMind\Unity\NextMindEbookReader\Temp\bin\Debug\PdfiumViewer.
 D:\Projects\Work\NextMind\Unity\NextMindEbookReader\Temp\bin\Debug\PdfiumViewer.resources.dll
 D:\Projects\Work\NextMind\Unity\NextMindEbookReader\Temp\bin\Debug\System.Drawing.dll
 D:\Projects\Work\NextMind\Unity\NextMindEbookReader\Temp\bin\Debug\nl\PdfiumViewer.resources.dll
+D:\Projects\Work\NextMind\Unity\NextMindEbookReader\Temp\bin\Debug\UnityEditor.iOS.Extensions.Common.dll
+D:\Projects\Work\NextMind\Unity\NextMindEbookReader\Temp\bin\Debug\UnityEditor.iOS.Extensions.Xcode.dll
+D:\Projects\Work\NextMind\Unity\NextMindEbookReader\Temp\bin\Debug\UnityEditor.iOS.Extensions.Xcode.pdb
+D:\Projects\Work\NextMind\Unity\NextMindEbookReader\Temp\bin\Debug\UnityEditor.iOS.Extensions.Common.pdb
