@@ -5,6 +5,8 @@ using TMPro;
 using UnityEngine.UI;
 using NextMind.NeuroTags;
 using UnityEngine.Events;
+using System;
+using UnityEngine.EventSystems;
 
 namespace EBookReader
 {
@@ -29,6 +31,10 @@ namespace EBookReader
         private bool _firstSymbolInputMode = true;
 
         private FileData _currentFile;
+
+        public delegate void OnButtonClicked();
+
+        public OnButtonClicked onButtonClicked;
 
         void Awake()
         {
@@ -66,6 +72,8 @@ namespace EBookReader
 
             _symbolModeButton.onClick.AddListener(() => SwitchInputMode());
             _symbolModeButton.GetComponentInChildren<NeuroTag>().onTriggered.AddListener(() => SwitchInputMode());
+
+            onButtonClicked += FocusOnInputPanel;
         }
 
         private void Start()
@@ -133,7 +141,19 @@ namespace EBookReader
         {
             char c = _firstSymbolInputMode ? symbolButton.FirstSymbol : symbolButton.SecondSymbol;
 
-            _inputField.text += c;
+            if (_inputField.caretPosition - _inputField.selectionAnchorPosition != 0)
+            {
+                RemoveLastSymbol();
+            }
+
+            string text = _inputField.text;
+            int pos = _inputField.caretPosition < _inputField.selectionAnchorPosition ? _inputField.caretPosition : _inputField.selectionAnchorPosition;
+
+            _inputField.text = text.Insert(pos, c.ToString());
+
+            _inputField.caretPosition = pos + 1;
+
+            onButtonClicked?.Invoke();
         }
 
         private void ExpandPanel(UIExpandButton button)
@@ -147,26 +167,63 @@ namespace EBookReader
             }
 
             button.Expand();
+
+            onButtonClicked?.Invoke();
         }
 
         public void RemoveLastSymbol()
         {
-            int l = _inputField.text.Length;
+            int pos = _inputField.caretPosition < _inputField.selectionAnchorPosition ? _inputField.caretPosition : _inputField.selectionAnchorPosition;
+            int removeCount = 0;
+            
 
-            if (l > 0)
+            if (pos > 0)
             {
-                _inputField.text = _inputField.text.Remove(l - 1);
+                int length = _inputField.text.Length;
+                int caretPos = _inputField.caretPosition;
+
+                removeCount = Mathf.Abs(_inputField.caretPosition - _inputField.selectionAnchorPosition);
+                removeCount = Mathf.Max(1, removeCount);
+
+                pos = removeCount > 1 ? pos : pos - 1;
+
+                _inputField.text = _inputField.text.Remove(pos, removeCount);
+
+                if (removeCount == 1)
+                {
+                    if (caretPos < length)
+                    {
+                        _inputField.caretPosition--;
+                    }
+                }
+                else
+                {
+                    if (_inputField.caretPosition > _inputField.selectionAnchorPosition)
+                    {
+                        _inputField.caretPosition = _inputField.selectionAnchorPosition;
+                    }
+                }
+
+                _inputField.selectionAnchorPosition = _inputField.caretPosition;
+
+                _inputField.ForceLabelUpdate();
             }
+
+            onButtonClicked?.Invoke();
         }
 
         public void InputEnterLine()
         {
             _inputField.text += "\n";
+
+            onButtonClicked?.Invoke();
         }
 
         public void InputSpaceSymbol()
         {
             _inputField.text += " ";
+
+            onButtonClicked?.Invoke();
         }
 
         public void SwitchInputMode()
@@ -177,6 +234,8 @@ namespace EBookReader
             {
                 btn.SetSymbolsMode(!_firstSymbolInputMode);
             }
+
+            onButtonClicked?.Invoke();
         }
 
         public void OpenFile(FileData file)
@@ -191,6 +250,11 @@ namespace EBookReader
             }
 
             _currentFile = file;
+        }
+
+        private void FocusOnInputPanel()
+        {
+            _inputField.ActivateInputField();
         }
     }
 }
